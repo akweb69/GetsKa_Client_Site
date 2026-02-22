@@ -19,22 +19,22 @@ export const HeroBanner = ({ title, subtitle, cta = 'Customized now' }) => (
 )
 
 // ─── Product Card ─────────────────────────────────────────────────────────────
-export const ProductCard = ({ name = 'Packaging Products', price = '€ 20.00', qty = '100 pcs', img = null }) => (
+export const ProductCard = ({ name = 'Packaging Products', price = '€ 20.00', qty = '100 pcs', img = "https://i.ibb.co/tp1qw7vj/Product-Label-1.png" }) => (
   <Link to="/product/1" className="bg-white rounded-2xl overflow-hidden hover:shadow-md transition-all duration-200 group">
     <div className="bg-gray-50 h-40 flex items-center justify-center overflow-hidden">
       {img
-        ? <img src={img} alt={name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+        ? <img src={img} alt={name} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
         : <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl opacity-60" />
-          </div>
+          <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl opacity-60" />
+        </div>
       }
     </div>
     <div className="p-3">
-      <p className="text-xs text-gray-500 mb-0.5">{name}</p>
-      <p className="text-xs text-gray-400">Starting from</p>
+      <p className="text-xs md:text-base text-[#050C29] mb-0.5">{name}</p>
+      <p className="text-xs text-[#3A456F">Starting from</p>
       <div className="flex items-center justify-between mt-1">
-        <span className="font-bold text-gray-900 text-sm">{price}</span>
-        {qty && <span className="text-xs text-gray-400">{qty}</span>}
+        <span className="font-bold text-[#5A33B4] text-sm">{price}</span>
+        {qty && <span className="text-xs text-[#3A456F">{qty}</span>}
       </div>
     </div>
   </Link>
@@ -126,7 +126,7 @@ export const DesignerCard = ({ name, role, rating = '4.9', jobs = '300', skills 
         <span>({jobs} jobs)</span>
       </div>
       <div className="flex flex-wrap gap-1 justify-center mb-4">
-        {skills.slice(0,3).map(s => (
+        {skills.slice(0, 3).map(s => (
           <span key={s} className="bg-primary-light text-primary text-[10px] px-2 py-0.5 rounded-full">{s}</span>
         ))}
       </div>

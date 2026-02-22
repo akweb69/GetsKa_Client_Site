@@ -8,6 +8,8 @@ import heroBanner from '../assets/hero img 1.png'
 import heroBottom from '../assets/Frame hero bottom.png'
 import hellow from '../assets/hero sub-img 1.png'
 import CategoryPills from '../components/HomePage/CategoryPills'
+import MostPopularProducts from '../components/HomePage/MostPopularProducts'
+import UniqueEdge from '../components/HomePage/UniqueEdge'
 
 
 
@@ -87,102 +89,57 @@ const Home = () => {
       </section>
 
       {/* Most Popular Products */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-8">
-        <div className="flex items-center gap-8">
-          {/* Sidebar categories */}
-          <div className="hidden lg:block w-52 flex-shrink-0">
-            <div className="bg-white rounded-2xl p-4 shadow-sm">
-              <h3 className="text-sm font-bold text-gray-900 mb-3">Most Popular Product</h3>
-              <ul className="space-y-1 text-sm text-gray-600">
-                {['Business Essentials', 'Marketing Materials', 'Labels & Stickers', 'Promotional Items', 'Banners, Poster & Signs', 'Apparel LIM', 'Forms & Packages'].map(item => (
-                  <li key={item}>
-                    <Link to="/products" className="flex items-center justify-between py-1.5 hover:text-primary transition-colors">
-                      <span className="text-xs">{item}</span>
-                      <ChevronRight size={12} className="text-gray-400" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          {/* Products Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <ProductCard key={i} name="Packaging Products" price={`€ ${(20 + i * 5).toFixed(2)}`} qty="100 pcs" />
-              ))}
-            </div>
-          </div>
-        </div>
+      <section className="w-11/12 mx-auto  pb-8 ">
+        <MostPopularProducts />
       </section>
 
       {/* New Arrivals */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4 ">New Arrival</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <ProductCard key={i} name="Packaging Products" price={`€ ${(25 + i * 3).toFixed(2)}`} qty={`${50 + i * 10} pcs`} />
-          ))}
-        </div>
-      </section>
+      <section className="w-11/12 mx-auto  pb-8 ">
 
-      {/* Special Offers */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4 ">Special Offers</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <ProductCard key={i} name="Packaging Products" price={`€ ${(10 + i * 4).toFixed(2)}`} qty={`${30 + i * 10} pcs`} />
-          ))}
-        </div>
-        <div className="flex justify-center mt-6 gap-2">
-          {[1, 2, 3, '...', 9].map((p, i) => (
-            <button key={i} className={`w-8 h-8 rounded-lg text-sm font-medium ${p === 1 ? 'bg-primary text-white' : 'bg-white text-gray-600 border border-gray-200 hover:border-primary'}`}>
-              {p}
-            </button>
-          ))}
-        </div>
-      </section>
+        <div className="flex gap-8">
+          <div className="hidden lg:block w-1/4 flex-shrink-0 ">
 
-      {/* Unique Edge */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-12">
-        <div className="bg-navy rounded-3xl p-10 text-white">
-          <h2 className="text-3xl font-bold text-center mb-10 ">Unique Edge</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-            <div className="space-y-6">
-              {[
-                { title: 'Designing Expertise', desc: 'Expert in creating stunning visual materials with unmatched creativity.' },
-                { title: 'Printing Excellence', desc: 'Superior quality printing delivered with precision and care.' },
-              ].map(item => (
-                <div key={item.title}>
-                  <div className="w-8 h-8 bg-primary rounded-lg mb-3"></div>
-                  <h3 className="font-semibold text-white mb-1">{item.title}</h3>
-                  <p className="text-gray-400 text-sm">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center">
-              <div className="w-40 h-72 bg-white/10 rounded-3xl flex items-center justify-center border border-white/20">
-                <span className="text-4xl">📱</span>
-              </div>
-            </div>
-            <div className="space-y-6">
-              {[
-                { title: 'Creative Impactful Projects', desc: 'Transforming ideas into powerful visual stories.' },
-                { title: 'Global Delivery', desc: 'Fast and reliable worldwide shipping to your doorstep.' },
-              ].map(item => (
-                <div key={item.title}>
-                  <div className="w-8 h-8 bg-primary rounded-lg mb-3"></div>
-                  <h3 className="font-semibold text-white mb-1">{item.title}</h3>
-                  <p className="text-gray-400 text-sm">{item.desc}</p>
-                </div>
+          </div>
+          <div className="w-full">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#09164B] mb-8 ">New Arrival</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <ProductCard key={i} name="Packaging Products" price={`€ ${(25 + i * 3).toFixed(2)}`} qty={`${50 + i * 10} pcs`} />
               ))}
             </div>
           </div>
-        </div>
+        </div >
+
+
+      </section >
+
+      {/* Special Offers */}
+      <section className="w-11/12 mx-auto  pb-8 md:pb-16 lg:pb-20">
+
+        <div className="flex gap-8">
+          <div className="hidden lg:block w-1/4 flex-shrink-0 ">
+
+          </div>
+          <div className="w-full">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#09164B] mb-8 ">Special Offers</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <ProductCard key={i} name="Packaging Products" price={`€ ${(25 + i * 3).toFixed(2)}`} qty={`${50 + i * 10} pcs`} />
+              ))}
+            </div>
+          </div>
+        </div >
+
+
+      </section >
+
+      {/* Unique Edge */}
+      <section>
+        <UniqueEdge />
       </section>
 
       {/* Star Products */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
+      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900 ">Star Products</h2>
           <Link to="/products" className="text-primary text-sm font-semibold hover:underline flex items-center gap-1">
@@ -206,10 +163,10 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section >
 
       {/* Core Services */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
+      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
         <h2 className="text-2xl font-bold text-gray-900  mb-6">Core Services</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-primary rounded-2xl p-6 text-white">
@@ -227,10 +184,10 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Discover Us */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
+      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
         <div className="bg-white rounded-3xl p-10 flex flex-col md:flex-row items-center gap-10 shadow-sm">
           <div className="flex-1">
             <p className="text-primary text-sm font-semibold mb-2">About Us</p>
@@ -247,10 +204,10 @@ const Home = () => {
             <span className="text-6xl">🎯</span>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Client Insights */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
+      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-900 ">Client Insights</h2>
           <Link to="#" className="text-primary text-sm font-semibold hover:underline">See all</Link>
@@ -272,11 +229,11 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section >
 
       <PopularChoices />
       <HireDesignersBlock />
-    </div>
+    </div >
   )
 }
 
