@@ -7,25 +7,11 @@ import { PopularChoices, HireDesignersBlock, ProductCard } from '../components/S
 import heroBanner from '../assets/hero img 1.png'
 import heroBottom from '../assets/Frame hero bottom.png'
 import hellow from '../assets/hero sub-img 1.png'
+import CategoryPills from '../components/HomePage/CategoryPills'
 
 
 
-const brands = ['Spherule', 'Samsung', 'VISA', 'Amazon Pay', 'PayPal', 'Atipso', 'Spherule', 'Amazon Pay', 'VISA', 'Alipay', 'PayPal', 'UNIVERSIRY']
 
-const categories = [
-  { name: 'Business Card', icon: '🎴' },
-  { name: 'Sticker Design', icon: '🏷️' },
-  { name: 'Flyer & Leaflets', icon: '📄' },
-  { name: 'Stationery Design', icon: '✏️' },
-  { name: 'Letter Head Design', icon: '📋' },
-  { name: 'Banner Design', icon: '🖼️' },
-  { name: 'Product Label', icon: '🏪' },
-]
-
-const coreServices = [
-  { title: 'Custom Design', desc: 'Personalized design solutions tailored to your brand.' },
-  { title: 'Printing', desc: 'High-quality printing with precision and care.' },
-]
 
 const testimonials = [
   { name: 'Sarah T.', role: 'Founder', text: 'Amazing quality and super fast delivery. Highly recommend!' },
@@ -96,15 +82,8 @@ const Home = () => {
       </section>
 
       {/* Category Pills */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-8">
-        <div className="flex gap-3 flex-wrap">
-          {categories.map(c => (
-            <Link key={c.name} to="/products" className="bg-white hover:bg-primary-light border border-gray-200 rounded-2xl px-4 py-3 flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-primary transition-all hover:border-primary shadow-sm">
-              <span>{c.icon}</span>
-              <span>{c.name}</span>
-            </Link>
-          ))}
-        </div>
+      <section className="w-11/12 mx-auto  py-8 md:py-16 lg:py-20">
+        <CategoryPills />
       </section>
 
       {/* Most Popular Products */}
