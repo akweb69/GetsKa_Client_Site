@@ -9,7 +9,7 @@ export const HeroBanner = ({ title, subtitle, cta = 'Customized now' }) => (
     <div className="absolute -bottom-8 -right-8 w-40 h-40 border-[12px] border-white/20 rounded-full" />
     <div className="absolute top-4 right-20 w-16 h-16 border-[8px] border-white/10 rounded-full" />
     <div className="relative z-10 py-16 px-8 text-center max-w-2xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-bold mb-4 font-display">{title}</h1>
+      <h1 className="text-4xl md:text-5xl font-bold mb-4 ">{title}</h1>
       {subtitle && <p className="text-purple-200 mb-8 text-sm leading-relaxed max-w-md mx-auto">{subtitle}</p>}
       <button className="bg-gray-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-colors">
         {cta}
@@ -58,7 +58,7 @@ export const PopularChoices = () => {
     <section className="py-16 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 font-display mb-2">Popular Choices</h2>
+          <h2 className="text-3xl font-bold text-gray-900  mb-2">Popular Choices</h2>
           <p className="text-gray-500 text-sm max-w-md mx-auto">
             Check out the products everyone is raving about. Handpicked and highly rated, these are must-haves for your collection.
           </p>
@@ -94,7 +94,7 @@ export const HireDesignersBlock = () => (
         </div>
       </div>
       <div className="text-center md:text-left max-w-sm">
-        <h3 className="text-white text-2xl font-bold font-display mb-2">Hire Designers</h3>
+        <h3 className="text-white text-2xl font-bold  mb-2">Hire Designers</h3>
         <p className="text-gray-400 text-sm mb-5">
           Find skilled designers for both freelance projects and full-time opportunities. Enhance your brand with expert design solutions.
         </p>

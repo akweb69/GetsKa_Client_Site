@@ -149,52 +149,6 @@ const Home = () => {
       <section>
         <CoreServices />
       </section>
-
-      {/* Discover Us */}
-      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
-        <div className="bg-white rounded-3xl p-10 flex flex-col md:flex-row items-center gap-10 shadow-sm">
-          <div className="flex-1">
-            <p className="text-primary text-sm font-semibold mb-2">About Us</p>
-            <h2 className="text-3xl font-bold text-gray-900  mb-4">Discover Us</h2>
-            <p className="text-gray-500 leading-relaxed mb-4">
-              We are a creative design agency passionate about helping brands stand out. From concept to print, we deliver exceptional results.
-            </p>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              Our team of expert designers and print specialists work together to bring your vision to life with unmatched quality and attention to detail.
-            </p>
-            <Link to="/about" className="btn-primary">Learn More <ArrowRight size={16} /></Link>
-          </div>
-          <div className="flex-1 h-56 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center">
-            <span className="text-6xl">🎯</span>
-          </div>
-        </div>
-      </section >
-
-      {/* Client Insights */}
-      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 ">Client Insights</h2>
-          <Link to="#" className="text-primary text-sm font-semibold hover:underline">See all</Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {testimonials.map(t => (
-            <div key={t.name} className="bg-white rounded-2xl p-6 shadow-sm">
-              <div className="flex text-yellow-400 mb-3">
-                {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-              </div>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4">"{t.text}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-200 to-pink-200"></div>
-                <div>
-                  <p className="font-semibold text-sm text-gray-900">{t.name}</p>
-                  <p className="text-xs text-gray-400">{t.role}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section >
-
       <PopularChoices />
       <HireDesignersBlock />
     </div >

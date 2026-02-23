@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import videoBg from '../../assets/vidoe--------1.png'
 import DiscoverUS from './DiscoverUS';
+import ClientInsights from './ClientInsights';
 
 const CoreServices = () => {
     return (
@@ -70,6 +71,9 @@ const CoreServices = () => {
             {/* discover us */}
             <div className="">
                 <DiscoverUS />
+            </div>
+            <div className="">
+                <ClientInsights />
             </div>
 
         </div>
