@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
+import hiredesigner from '../assets/hire-designer--1.png'
 
 // ─── Hero Banner (purple with decorative arcs) ───────────────────────────────
 export const HeroBanner = ({ title, subtitle, cta = 'Customized now' }) => (
@@ -82,32 +83,8 @@ export const PopularChoices = () => {
 
 // ─── Hire Designers Block ─────────────────────────────────────────────────────
 export const HireDesignersBlock = () => (
-  <section className="px-4 md:px-6 py-8">
-    <div className="max-w-7xl mx-auto bg-navy rounded-3xl px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-      {/* left images placeholder */}
-      <div className="hidden md:flex items-center gap-2 flex-shrink-0">
-        <div className="w-24 h-24 rounded-full bg-gray-700 overflow-hidden border-4 border-white/10">
-          <div className="w-full h-full bg-gradient-to-br from-orange-200 to-orange-400" />
-        </div>
-        <div className="w-20 h-20 rounded-full bg-gray-700 overflow-hidden border-4 border-white/10 -ml-6">
-          <div className="w-full h-full bg-gradient-to-br from-blue-200 to-blue-400" />
-        </div>
-      </div>
-      <div className="text-center md:text-left max-w-sm">
-        <h3 className="text-white text-2xl font-bold  mb-2">Hire Designers</h3>
-        <p className="text-gray-400 text-sm mb-5">
-          Find skilled designers for both freelance projects and full-time opportunities. Enhance your brand with expert design solutions.
-        </p>
-        <div className="flex gap-3 justify-center md:justify-start">
-          <Link to="/hire-designer" className="bg-primary hover:bg-primary-hover text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors">
-            Hire Designers
-          </Link>
-          <Link to="/services" className="border border-white/30 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-white/10 transition-colors">
-            Explore services
-          </Link>
-        </div>
-      </div>
-    </div>
+  <section className="w-11/12 mx-auto my-16 md:my-24">
+    <img src={hiredesigner} alt="Hire Designers" className="w-full object-cover rounded-xl" />
   </section>
 )
 
