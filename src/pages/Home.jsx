@@ -11,6 +11,7 @@ import CategoryPills from '../components/HomePage/CategoryPills'
 import MostPopularProducts from '../components/HomePage/MostPopularProducts'
 import UniqueEdge from '../components/HomePage/UniqueEdge'
 import StarProducts from '../components/HomePage/StarProducts'
+import CoreServices from '../components/HomePage/CoreServices'
 
 
 
@@ -145,25 +146,9 @@ const Home = () => {
       </section>
 
       {/* Core Services */}
-      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
-        <h2 className="text-2xl font-bold text-gray-900  mb-6">Core Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-primary rounded-2xl p-6 text-white">
-            <h3 className="text-xl font-bold mb-2 ">Custom Design</h3>
-            <p className="text-purple-200 text-sm">Unique, personalized designs that bring your vision to life.</p>
-            <Link to="/branding" className="mt-4 inline-block text-sm font-semibold underline">Learn more</Link>
-          </div>
-          <div className="col-span-1 md:col-span-2 bg-white rounded-2xl overflow-hidden shadow-sm">
-            <div className="h-40 bg-gradient-to-r from-gray-100 to-gray-200 flex items-center justify-center">
-              <span className="text-4xl">🖨️</span>
-            </div>
-            <div className="p-5">
-              <h3 className="text-xl font-bold mb-2 ">Printing</h3>
-              <p className="text-gray-500 text-sm">Premium printing services for all your business needs, delivered with precision.</p>
-            </div>
-          </div>
-        </div>
-      </section >
+      <section>
+        <CoreServices />
+      </section>
 
       {/* Discover Us */}
       <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
