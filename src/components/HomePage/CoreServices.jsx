@@ -2,10 +2,13 @@ import { Framer, Pipette } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import videoBg from '../../assets/vidoe--------1.png'
+import DiscoverUS from './DiscoverUS';
+
 const CoreServices = () => {
     return (
-        <div className='w-full bg-[#351E6A] rounded-2xl md:rounded-3xl my-4 md:my-6 lg:my-10 '>
-            <div className="w-11/12 mx-auto py-6 md:py-8">
+        <div className='w-full bg-[#351E6A] rounded-2xl md:rounded-3xl my-4 md:my-6 lg:my-10 py-6 md:py-10 lg:py-20'>
+            <div className="w-11/12 mx-auto ">
                 {/* section--01 */}
                 <section className='w-full grid space-y-4 md:grid-cols-3 items-center gap-6 md:space-y-0'>
 
@@ -58,7 +61,17 @@ const CoreServices = () => {
                     </div>
 
                 </section>
+
+                {/* video section */}
+                <div className="w-full h-64 md:h-96 lg:h-[580px] bg-gray-200 rounded-xl my-6">
+                    <img src={videoBg} alt="video background" className="w-full h-full object-cover rounded-xl" />
+                </div>
             </div>
+            {/* discover us */}
+            <div className="">
+                <DiscoverUS />
+            </div>
+
         </div>
     );
 };
