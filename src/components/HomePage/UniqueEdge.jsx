@@ -13,9 +13,9 @@ const UniqueEdge = () => {
                 </p>
             </div>
 
-            <div className="md:grid grid-cols-3 gap-4 md:gap-6 h-full">
+            <div className="md:grid grid-cols-3 gap-4 md:gap-6 space-y-4 md:space-y-0 h-full">
                 {/* left side */}
-                <div className="flex flex-col gap-4 md:gap-6">
+                <div className="flex flex-col gap-4 md:gap-6 ">
 
 
                     {

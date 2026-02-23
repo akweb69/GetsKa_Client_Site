@@ -10,6 +10,7 @@ import hellow from '../assets/hero sub-img 1.png'
 import CategoryPills from '../components/HomePage/CategoryPills'
 import MostPopularProducts from '../components/HomePage/MostPopularProducts'
 import UniqueEdge from '../components/HomePage/UniqueEdge'
+import StarProducts from '../components/HomePage/StarProducts'
 
 
 
@@ -139,31 +140,9 @@ const Home = () => {
       </section>
 
       {/* Star Products */}
-      <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 ">Star Products</h2>
-          <Link to="/products" className="text-primary text-sm font-semibold hover:underline flex items-center gap-1">
-            View all <ArrowRight size={14} />
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { name: 'App Design', sub: 'UI/UX Design · Branding' },
-            { name: 'Website Redesign', sub: 'Web Design · UX' },
-            { name: 'App Screens (UI)', sub: 'UI Design · App' },
-          ].map(p => (
-            <div key={p.name} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-                <span className="text-5xl">🎨</span>
-              </div>
-              <div className="p-4">
-                <p className="text-xs text-gray-400 mb-1">{p.sub}</p>
-                <h3 className="font-bold text-gray-900">{p.name}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section >
+      <section>
+        <StarProducts />
+      </section>
 
       {/* Core Services */}
       <section section className="max-w-7xl mx-auto px-4 md:px-6 pb-12" >
