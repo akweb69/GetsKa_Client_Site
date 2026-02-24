@@ -17,7 +17,7 @@ const CoreServices = () => {
                         <h1 className=" text-[#F2EDFF] text-2xl font-bold md:text-4xl ">Core Services</h1>
                         <p className="text-[#D7C6FE] md:text-lg text-sm py-4 " >Our diverse services are designed to bring your ideas to life. Trust us for quality, precision, and innovation in every project.</p>
 
-                        <div className="md:grid grid-cols-2 gap-4 items-center w-full">
+                        <div className="grid grid-cols-2 gap-4 items-center w-full">
                             <Link className='w-full bg-[#5216E7] text-white rounded-md p-3 text-center'>
                                 Customized now
                             </Link>

@@ -52,7 +52,7 @@ const DiscoverUs = () => {
 
                         {/* Buttons */}
 
-                        <div className="md:flex space-y-4 md:space-y-0 items-center gap-4 ">
+                        <div className="flex items-center gap-4 ">
                             <Link className=' bg-[#5216E7] text-white rounded-md p-3 text-center'>
                                 Customized now
                             </Link>

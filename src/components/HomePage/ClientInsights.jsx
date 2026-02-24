@@ -11,7 +11,7 @@ const ClientInsights = () => {
                     <h1 className=" text-[#F2EDFF] text-2xl font-bold md:text-4xl ">Client Insights</h1>
                     <p className="text-[#D7C6FE] md:text-lg text-sm py-4 " >Discover the stories of our satisfied clients. Their testimonials showcase the quality and impact of our services.</p>
 
-                    <div className="md:grid grid-cols-2 gap-4 items-center w-full">
+                    <div className="grid grid-cols-2 gap-4 items-center w-full">
                         <Link className='w-full bg-[#5216E7] text-white rounded-md p-3 text-center'>
                             Customized now
                         </Link>
