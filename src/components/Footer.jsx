@@ -1,15 +1,22 @@
 import { Link } from 'react-router-dom'
 import { Facebook, Linkedin, Twitter, Instagram } from 'lucide-react'
 
+import logo from '../assets/Button.png'
+import groupImg from '../assets/Group 469277.png'
+
+import playstoreappstore from '../assets/Button (1).png'
+import cards from '../assets/cards.png'
+
+
 const Footer = () => {
   return (
-    <footer className="bg-navy text-white">
+    <footer className="bg-navy text-white mt-20">
       {/* Newsletter Section */}
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="max-w-xs">
-              <h3 className="text-3xl font-bold mb-3 font-display">Stay Informed</h3>
+              <h3 className="text-3xl font-bold mb-3 ">Stay Informed</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Join our newsletter for insider tips, product updates, and special promotions. Be the first to know what's new and trending.
               </p>
@@ -25,11 +32,8 @@ const Footer = () => {
               </div>
             </div>
             {/* Decorative product image area */}
-            <div className="hidden md:block w-80 h-48 relative">
-              <div className="absolute inset-0 flex items-center justify-center opacity-30">
-                <div className="w-32 h-40 bg-gradient-to-b from-white/20 to-transparent rounded-xl"></div>
-                <div className="w-32 h-40 bg-gradient-to-b from-primary/30 to-transparent rounded-xl -ml-8"></div>
-              </div>
+            <div className="hidden md:block">
+              <img className=' -mt-[200px]' src={groupImg} alt="Decorative product image" />
             </div>
           </div>
         </div>
@@ -41,8 +45,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-1">
             <div className="mb-4">
-              <div className="text-2xl font-black text-white" style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-1px' }}>getska</div>
-              <div className="text-[9px] font-semibold text-gray-500 tracking-widest uppercase">Design</div>
+              <img src={logo} alt="" />
             </div>
 
             <div className="space-y-3 text-sm text-gray-400">
@@ -74,7 +77,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-white text-sm mb-4">Products</h4>
             <ul className="space-y-2 text-xs text-gray-400">
-              {['Logo Design','Poster Design','Bill Book','Money Pocket','ID Card Design','Letter Head Design','Brochure Design','Mug Printing','Banner Design'].map(item => (
+              {['Logo Design', 'Poster Design', 'Bill Book', 'Money Pocket', 'ID Card Design', 'Letter Head Design', 'Brochure Design', 'Mug Printing', 'Banner Design'].map(item => (
                 <li key={item}><Link to="/products" className="hover:text-white transition-colors">{item}</Link></li>
               ))}
             </ul>
@@ -84,7 +87,7 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-white text-sm mb-4 opacity-0">_</h4>
             <ul className="space-y-2 text-xs text-gray-400">
-              {['Calendar Design','Product Box','Product Label','Business Card','Sticker Design','Flyer & Leaflets','Stationary Design','Invitation Card','Certificate Design'].map(item => (
+              {['Calendar Design', 'Product Box', 'Product Label', 'Business Card', 'Sticker Design', 'Flyer & Leaflets', 'Stationary Design', 'Invitation Card', 'Certificate Design'].map(item => (
                 <li key={item}><Link to="/products" className="hover:text-white transition-colors">{item}</Link></li>
               ))}
             </ul>
@@ -94,13 +97,13 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-white text-sm mb-4">Our Company</h4>
             <ul className="space-y-2 text-xs text-gray-400 mb-6">
-              {['About','Careers','Media','Blog','FAQ'].map(item => (
+              {['About', 'Careers', 'Media', 'Blog', 'FAQ'].map(item => (
                 <li key={item}><Link to="/about" className="hover:text-white transition-colors">{item}</Link></li>
               ))}
             </ul>
             <h4 className="font-semibold text-white text-sm mb-4">Help Center</h4>
             <ul className="space-y-2 text-xs text-gray-400">
-              {['Contact & Support','Accessibility','Privacy Policy','Terms & Condition','Shipping & Delivery'].map(item => (
+              {['Contact & Support', 'Accessibility', 'Privacy Policy', 'Terms & Condition', 'Shipping & Delivery'].map(item => (
                 <li key={item}><Link to="/contact" className="hover:text-white transition-colors">{item}</Link></li>
               ))}
             </ul>
@@ -110,13 +113,13 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-white text-sm mb-4">Design Services</h4>
             <ul className="space-y-2 text-xs text-gray-400 mb-6">
-              {['Logo Design','Graphic Design','Print Design','Motion Design','UI/UX Design','App Design','Web Design','Web Development','Digital Marketing'].map(item => (
+              {['Logo Design', 'Graphic Design', 'Print Design', 'Motion Design', 'UI/UX Design', 'App Design', 'Web Design', 'Web Development', 'Digital Marketing'].map(item => (
                 <li key={item}><Link to="/services" className="hover:text-white transition-colors">{item}</Link></li>
               ))}
             </ul>
             <h4 className="font-semibold text-white text-sm mb-4">Information</h4>
             <ul className="space-y-2 text-xs text-gray-400">
-              {['My Account','Print Provider','Become A Partner','Affiliate Program','Referral Program'].map(item => (
+              {['My Account', 'Print Provider', 'Become A Partner', 'Affiliate Program', 'Referral Program'].map(item => (
                 <li key={item}><Link to="#" className="hover:text-white transition-colors">{item}</Link></li>
               ))}
             </ul>
@@ -128,16 +131,11 @@ const Footer = () => {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-4">
-            <div className="flex gap-2 opacity-60">
-              <div className="bg-green-500 rounded px-2 py-1 text-[9px] font-bold">Google Play</div>
-              <div className="bg-gray-600 rounded px-2 py-1 text-[9px] font-bold">App Store</div>
-            </div>
+            <img src={playstoreappstore} alt="" />
           </div>
-          <p className="text-gray-500 text-xs">Full Copyright & Design By @Getska Design - 2024</p>
+          <p className="text-gray-500 text-xs">Full Copyright & Design By @Getska Design - {new Date().getFullYear()}</p>
           <div className="flex gap-2">
-            {['MC','AMEX','VISA','PP'].map(card => (
-              <div key={card} className="bg-white/10 rounded px-2 py-1 text-[9px] font-bold text-gray-400">{card}</div>
-            ))}
+            <img src={cards} alt="" />
           </div>
         </div>
       </div>

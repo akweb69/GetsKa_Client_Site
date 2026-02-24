@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
 import hiredesigner from '../assets/hire-designer--1.png'
+import productImage from '../assets/Image.png'
 
 // ─── Hero Banner (purple with decorative arcs) ───────────────────────────────
 export const HeroBanner = ({ title, subtitle, cta = 'Customized now' }) => (
-  <div className="bg-primary rounded-3xl text-white relative overflow-hidden mx-4 my-6 md:mx-6">
+  <div className="bg-primary rounded-3xl text-white relative overflow-hidden w-11/12 mx-auto  my-6 ">
     {/* Decorative arcs */}
-    <div className="absolute -top-8 -left-8 w-32 h-32 border-[12px] border-white/20 rounded-full" />
-    <div className="absolute -bottom-8 -right-8 w-40 h-40 border-[12px] border-white/20 rounded-full" />
-    <div className="absolute top-4 right-20 w-16 h-16 border-[8px] border-white/10 rounded-full" />
+    <div className="absolute -bottom-8 -left-8 w-40 h-40 border-[20px] border-white rounded-full" />
+    <div className="absolute -top-8 -right-8 w-40 h-40 border-[20px] border-white rounded-full" />
     <div className="relative z-10 py-16 px-8 text-center max-w-2xl mx-auto">
       <h1 className="text-4xl md:text-5xl font-bold mb-4 ">{title}</h1>
       {subtitle && <p className="text-purple-200 mb-8 text-sm leading-relaxed max-w-md mx-auto">{subtitle}</p>}
@@ -20,9 +20,9 @@ export const HeroBanner = ({ title, subtitle, cta = 'Customized now' }) => (
 )
 
 // ─── Product Card ─────────────────────────────────────────────────────────────
-export const ProductCard = ({ name = 'Packaging Products', price = '€ 20.00', qty = '100 pcs', img = "https://i.ibb.co/tp1qw7vj/Product-Label-1.png" }) => (
+export const ProductCard = ({ name = 'Packaging Products', price = '€ 20.00', qty = '100 pcs', img = productImage }) => (
   <Link to="/product/1" className="bg-white rounded-2xl overflow-hidden hover:shadow-md transition-all duration-200 group">
-    <div className="bg-gray-50 h-40 flex items-center justify-center overflow-hidden">
+    <div className="bg-gray-50 h-40 md:h-46 lg:h-52 flex w-full items-center justify-center overflow-hidden">
       {img
         ? <img src={img} alt={name} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" />
         : <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
