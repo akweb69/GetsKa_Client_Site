@@ -27,7 +27,7 @@ const Home = () => {
   return (
     <div className="bg-[#f5f5ff] w-full h-full">
       {/* Hero */}
-      <section className="w-full md:h-full px-4 sm:px-6 lg:px-0">
+      <section className="w-full md:h-full">
         <div className="bg-[#f0edff] rounded-3xl h-full grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 relative overflow-hidden">
 
           {/* Left column - Text content */}

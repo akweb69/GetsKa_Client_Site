@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full">
       {/* Top Bar */}
-      <div className="top-bar text-white text-xs py-2 px-4">
+      <div className="top-bar text-white text-[7px] md:text-xs py-2 px-4">
         <div className="w-11/12 mx-auto flex items-center justify-between">
           <div className="flex items-center gap-1">
             <Phone size={11} />

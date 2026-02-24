@@ -180,7 +180,9 @@ const StarProducts = () => {
 const styles = {
     section: {
         background: '#f0f0f0',
-        padding: '60px 64px',
+        width: "90%",
+        margin: "0 auto",
+        padding: '40px 0',
         fontFamily: "'DM Sans', sans-serif",
     },
     header: {
