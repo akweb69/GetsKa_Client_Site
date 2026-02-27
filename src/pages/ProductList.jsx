@@ -15,7 +15,7 @@ const ProductList = () => {
       {/* Products Grid */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-10">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {Array.from({length: 20}).map((_, i) => (
+          {Array.from({ length: 20 }).map((_, i) => (
             <ProductCard key={i} name="Packaging Products" price={`€ ${(20 + i * 2).toFixed(2)}`} qty="100 pcs" />
           ))}
         </div>
