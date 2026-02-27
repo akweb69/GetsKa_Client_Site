@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import { HireDesignersBlock } from '../components/Shared'
+import aboutpayment from '../assets/about-payment.png'
 
 const processSteps = [
   { title: 'Identifying your target audience', desc: 'We research your target customers to understand their needs, preferences, and pain points, creating a strategy that appeals to them.' },
@@ -11,7 +12,7 @@ const processSteps = [
   { title: 'Final Design Iteration & Implementation', desc: 'Find the most comprehensive online resource for brands. We curate the best of our themes and implement accordingly.' },
 ]
 
-const industryList = ['Technology','Healthcare','Finance','Government & Policy','Tours and Community','Hospitality','Education','Branding For Groups','Non-profit']
+const industryList = ['Technology', 'Healthcare', 'Finance', 'Government & Policy', 'Tours and Community', 'Hospitality', 'Education', 'Branding For Groups', 'Non-profit']
 
 const faqs = [
   { q: 'What is a logo?', a: 'A logo is a unique symbol, mark, or icon used to identify a company, product, or brand. It is typically combined with a business name and other visual elements.' },
@@ -29,7 +30,7 @@ const Branding = () => {
           <div className="absolute -top-8 -left-8 w-32 h-32 border-[12px] border-white/20 rounded-full" />
           <div className="absolute -bottom-8 -right-8 w-40 h-40 border-[12px] border-white/20 rounded-full" />
           <div className="relative z-10 max-w-xl">
-            <h1 className="text-4xl font-bold font-display mb-4">Brand Design &<br />Consulting Services</h1>
+            <h1 className="text-4xl font-bold  mb-4">Brand Design &<br />Consulting Services</h1>
             <p className="text-purple-200 text-sm leading-relaxed mb-6">
               From brand strategy to visual identity, we craft comprehensive brand experiences that make your business memorable, impactful, and scalable.
             </p>
@@ -41,24 +42,15 @@ const Branding = () => {
       </section>
 
       {/* Trusted Brands */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 font-display text-center mb-8">Trusted Global Brand</h2>
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <div className="grid grid-cols-4 md:grid-cols-6 gap-4">
-            {['Spherule','Samsung','VISA','Amazon Pay','PayPal','Atipso','Spherule','Amazon Pay','VISA','Alipay','PayPal','UNIVERSIRY'].map((b, i) => (
-              <div key={i} className="flex items-center justify-center h-8 opacity-40 hover:opacity-70 transition-opacity">
-                <span className="text-gray-600 text-xs font-bold">{b}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="w-full py-14">
+        <img src={aboutpayment} className='w-full h-full' alt="" />
       </section>
 
       {/* Design Speaks Section */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 font-display mb-4">Design Speaks<br />Louder Than Words</h2>
+            <h2 className="text-3xl font-bold text-gray-900  mb-4">Design Speaks<br />Louder Than Words</h2>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               Your visual brand is often the first impression customers have of your business. Great design builds trust, communicates values, and makes your brand unforgettable.
             </p>
@@ -76,7 +68,7 @@ const Branding = () => {
       {/* Design Process */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
         <div className="bg-white rounded-3xl p-10 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 font-display text-center mb-3">Design Process</h2>
+          <h2 className="text-2xl font-bold text-gray-900  text-center mb-3">Design Process</h2>
           <p className="text-gray-500 text-sm text-center mb-10 max-w-md mx-auto">
             Our proven 6-step design process ensures every project is delivered with quality and precision.
           </p>
@@ -99,12 +91,12 @@ const Branding = () => {
         <div className="bg-navy rounded-3xl p-10 flex flex-col md:flex-row items-center gap-10">
           <div className="hidden md:block w-36 h-36 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex-shrink-0 opacity-80"></div>
           <div>
-            <h2 className="text-3xl font-bold text-white font-display mb-4">Empowering<br />Success Stories.</h2>
+            <h2 className="text-3xl font-bold text-white  mb-4">Empowering<br />Success Stories.</h2>
             <p className="text-gray-400 text-sm mb-6 max-w-md leading-relaxed">
               Over the years, we've partnered with businesses of all sizes, delivering brand strategies that not only look great but also drive real business results.
             </p>
             <div className="flex gap-10">
-              {[['9+','Years Branding'],['40+','Creative Members'],['500+','Companies Served']].map(([num, label]) => (
+              {[['9+', 'Years Branding'], ['40+', 'Creative Members'], ['500+', 'Companies Served']].map(([num, label]) => (
                 <div key={label}>
                   <p className="text-3xl font-black text-white">{num}</p>
                   <p className="text-gray-400 text-xs mt-1">{label}</p>
@@ -119,7 +111,7 @@ const Branding = () => {
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
         <div className="bg-primary rounded-3xl p-10 text-white flex flex-col md:flex-row items-center gap-8">
           <div className="flex-1">
-            <h2 className="text-2xl font-bold font-display mb-4">Brand Design<br />Services</h2>
+            <h2 className="text-2xl font-bold  mb-4">Brand Design<br />Services</h2>
             <p className="text-purple-200 text-sm leading-relaxed mb-6">
               End-to-end branding services from strategy to execution — logos, style guides, brand voice, and more.
             </p>
@@ -137,7 +129,7 @@ const Branding = () => {
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
         <div className="grid md:grid-cols-2 gap-10 items-start">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 font-display mb-4">Tailored Brand<br />Design for Industry</h2>
+            <h2 className="text-2xl font-bold text-gray-900  mb-4">Tailored Brand<br />Design for Industry</h2>
             <p className="text-gray-500 text-sm leading-relaxed mb-6">
               We specialize in branding for specific industries, understanding the unique challenges and opportunities each sector presents.
             </p>
@@ -158,7 +150,7 @@ const Branding = () => {
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
         <div className="grid md:grid-cols-2 gap-10">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 font-display mb-3">FAQs for Branding<br />Design Services</h2>
+            <h2 className="text-2xl font-bold text-gray-900  mb-3">FAQs for Branding<br />Design Services</h2>
             <p className="text-gray-500 text-sm leading-relaxed">
               Find answers to your most common questions about our branding services and how we can help your business grow.
             </p>
@@ -185,7 +177,7 @@ const Branding = () => {
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-12">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 font-display mb-3">Let's<br />Collaborate</h2>
+            <h2 className="text-3xl font-bold text-gray-900  mb-3">Let's<br />Collaborate</h2>
             <p className="text-gray-500 text-sm leading-relaxed">
               This initiative provides services to millions and brings them together for rapid design growing results.
             </p>
