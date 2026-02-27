@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom'
 import { Check, ArrowRight } from 'lucide-react'
 import { HeroBanner, HireDesignersBlock } from '../components/Shared'
+import recte30 from '../assets/Rectangle 30.png'
+import abouttt from '../assets/about-11.png'
+import aboutvalue from '../assets/about-value.png'
+import aboutpayment from '../assets/about-payment.png'
+import aboutslide from '../assets/about-slide.png'
 
-const brands = ['Spherule','Samsung','VISA','Amazon Pay','PayPal','Atipso','Spherule','Amazon Pay','VISA','Alipay','PayPal','UNIVERSIRY']
+const brands = ['Spherule', 'Samsung', 'VISA', 'Amazon Pay', 'PayPal', 'Atipso', 'Spherule', 'Amazon Pay', 'VISA', 'Alipay', 'PayPal', 'UNIVERSIRY']
 
 const faqs = [
   'What services does GetskaDesign agency offer?',
@@ -23,26 +28,22 @@ const About = () => {
       />
 
       {/* Precision Section */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-14">
+      <section className="w-11/12 mx-auto py-14">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900 font-display mb-3">Precision and Quality<br />in Every Solution</h2>
+          <h2 className="text-3xl font-bold text-gray-900  mb-3">Precision and Quality<br />in Every Solution</h2>
           <p className="text-gray-500 text-sm max-w-lg mx-auto">
             Getska delivers top-tier design and printing solutions, blending precision and creativity to bring your vision to life and elevate your brand.
           </p>
         </div>
-        <div className="w-full h-72 bg-white rounded-3xl shadow-sm overflow-hidden flex items-center justify-center">
-          <div className="flex gap-4 items-center">
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-4xl">👥</div>
-            <div className="w-48 h-48 rounded-full bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center text-5xl">🎨</div>
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center text-4xl">💡</div>
-          </div>
+        <div className="w-full ">
+          <img src={recte30} className='w-full h-full' alt="Precision and Quality in Every Solution" />
         </div>
       </section>
 
       {/* Agency Story */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-14">
+      <section className="w-11/12 mx-auto pb-14">
         <div className="bg-white rounded-3xl p-10 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 font-display mb-4">Getska Design Agency<br />precision meets creativity</h2>
+          <h2 className="text-2xl font-bold text-gray-900  mb-4">Getska Design Agency<br />precision meets creativity</h2>
           <p className="text-gray-500 text-sm leading-relaxed mb-4">
             Founded in 2013, Getska Design Agency excels in providing exceptional design services with a global reach. Our team combines creativity and passion to elevate businesses worldwide, driving innovation and creativity to elevate brands and achieve outstanding results.
           </p>
@@ -57,69 +58,26 @@ const About = () => {
       </section>
 
       {/* Success Stories */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-14">
-        <div className="bg-navy rounded-3xl p-10 flex flex-col md:flex-row items-center gap-10">
-          <div className="hidden md:block w-40 h-40 flex-shrink-0">
-            <div className="w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 rounded-full opacity-80"></div>
-          </div>
-          <div>
-            <h2 className="text-3xl font-bold text-white font-display mb-4">Empowering<br />Success Stories.</h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-md">
-              Over the years, we've partnered with businesses of all sizes, delivering design strategies that not only look great but also drive real results. Our designs have helped clients overcome challenges, reach milestones, and establish their voices.
-            </p>
-            <div className="flex gap-10">
-              {[['9+','Years Branding'],['40+','Creative Member'],['500+','Companies Served']].map(([num, label]) => (
-                <div key={label} className="text-center">
-                  <p className="text-3xl font-black text-white">{num}</p>
-                  <p className="text-gray-400 text-xs mt-1">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      <section className="w-full pb-14">
+        <img src={abouttt} className='w-full h-full' alt="" />
       </section>
 
       {/* Values */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-14">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 font-display mb-6">Values That<br />Sets Us Apart</h2>
-            <div className="space-y-4">
-              {['Meticulous Detail','Innovative Excellence','Precision Management','Transparent Communication'].map(v => (
-                <div key={v} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-                    <Check size={12} className="text-white" />
-                  </div>
-                  <span className="text-gray-700 font-medium text-sm">{v}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="h-64 bg-white rounded-3xl shadow-sm flex items-center justify-center">
-            <span className="text-6xl">💼</span>
-          </div>
-        </div>
+
+      <section className="w-full pb-14">
+        <img src={aboutvalue} className='w-full h-full' alt="" />
       </section>
 
       {/* Trusted Brands */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 pb-14">
-        <h2 className="text-2xl font-bold text-gray-900 font-display text-center mb-8">Trusted Global Brand</h2>
-        <div className="bg-white rounded-2xl p-8 shadow-sm">
-          <div className="grid grid-cols-4 md:grid-cols-6 gap-6">
-            {brands.map((b, i) => (
-              <div key={i} className="flex items-center justify-center h-10 opacity-40 hover:opacity-70 transition-opacity">
-                <span className="text-gray-600 text-xs font-bold">{b}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="w-full pb-14">
+        <img src={aboutpayment} className='w-full h-full' alt="" />
       </section>
 
       {/* FAQ */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-14">
         <div className="grid md:grid-cols-2 gap-10">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 font-display mb-3">Have Question?</h2>
+            <h2 className="text-2xl font-bold text-gray-900  mb-3">Have Question?</h2>
             <p className="text-gray-500 text-sm">We've answered some of your most frequently asked questions and innovative solutions.</p>
           </div>
           <div className="space-y-3">
@@ -132,12 +90,15 @@ const About = () => {
           </div>
         </div>
       </section>
-
+      {/* slider */}
+      <section className="w-full pb-14">
+        <img src={aboutslide} className='w-full h-full' alt="" />
+      </section>
       {/* Project Idea Form */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 pb-14">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900 font-display mb-3">Project Idea?</h2>
+            <h2 className="text-3xl font-bold text-gray-900  mb-3">Project Idea?</h2>
             <p className="text-gray-500 text-sm">We're always looking for partners like you. And we would love to work with you on your next big project.</p>
           </div>
           <div className="bg-white rounded-2xl p-6 shadow-sm">
