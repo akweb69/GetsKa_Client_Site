@@ -8,8 +8,8 @@ const MostPopularProducts = () => {
         <div>
             <div className="flex  gap-8">
                 {/* Sidebar categories */}
-                <div className="hidden lg:block w-1/4 flex-shrink-0 ">
-                    <div className="bg-[#7F48FD] w-full rounded-2xl  shadow-sm">
+                <div className="hidden lg:block w-1/4 flex-shrink-0 sticky top-24 self-start">
+                    <div className="bg-[#7F48FD] w-full rounded-2xl  shadow-sm ">
                         <h3 className="text-lg md:text-xl font-bold text-white mb-3 p-4 rounded-t-2xl bg-[#5A33B4] ">Most Popular Product</h3>
                         <ul className="space-y-1  text-white bg-[#7F48FD] rounded-b-2xl ">
                             {['Business Essentials', 'Marketing Materials', 'Labels & Stickers', 'Promotional Items', 'Banners, Poster & Signs', 'Apparel LIM', 'Forms & Packages'].map(item => (

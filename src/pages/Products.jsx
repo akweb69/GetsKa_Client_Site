@@ -23,7 +23,7 @@ const Products = () => {
 
 
       {/* Main Content with Sidebar */}
-      <div className="w-11/12 mx-auto">
+      <div className="w-11/12 mx-auto ">
         <MostPopularProducts />
 
       </div>
