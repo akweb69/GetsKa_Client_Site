@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const base_url = import.meta.env.VITE_APP_BASE_URL;
+const base_url = import.meta.env.VITE_BASE_URL;
 
 const fetchHeroSlider = async () => {
   const res = await axios.get(`${base_url}/hero-slider`);

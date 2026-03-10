@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ManageHeroSlider from '../Components/ManageHeroSlider';
 
 const Settings = () => {
     const [activeTab, setActiveTab] = useState(1)
@@ -20,7 +21,7 @@ const Settings = () => {
             {/* content area------> */}
 
             {
-                activeTab === 1 && <div>Hero Slider Content</div>
+                activeTab === 1 && <div> <ManageHeroSlider /> </div>
             }
             {
                 activeTab === 2 && <div>About Us Content</div>

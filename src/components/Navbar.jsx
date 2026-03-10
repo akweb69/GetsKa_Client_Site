@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Search, Heart, ShoppingBag, Menu, X, Phone, Mail, ChevronDown } from 'lucide-react'
-import logo from '../assets/Button.png'
+import logo from '../assets/Getska-design-Logo-Color-Variation-green-without-BG.png'
 
 const navLinks = [
   { name: 'Home', path: '/' },

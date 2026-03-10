@@ -1,7 +1,7 @@
 const AdminLoader = () => {
-    return (
-        <>
-            <style>{`
+  return (
+    <>
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@300;400&display=swap');
 
         .loader-root {
@@ -176,44 +176,44 @@ const AdminLoader = () => {
         }
       `}</style>
 
-            <div className="loader-root">
-                <div className="loader-grid" />
-                <div className="loader-glow" />
+      <div className="loader-root">
+        <div className="loader-grid" />
+        <div className="loader-glow" />
 
-                {/* Orbit rings */}
-                <div className="orbit" style={{ position: "absolute" }}>
-                    <span className="orbit-dot" />
-                </div>
-                <div className="orbit orbit-2" style={{ position: "absolute" }}>
-                    <span className="orbit-dot" />
-                </div>
+        {/* Orbit rings */}
+        <div className="orbit" style={{ position: "absolute" }}>
+          <span className="orbit-dot" />
+        </div>
+        <div className="orbit orbit-2" style={{ position: "absolute" }}>
+          <span className="orbit-dot" />
+        </div>
 
-                <div className="loader-center">
-                    {/* Corner brackets */}
-                    <span className="corner corner-tl" />
-                    <span className="corner corner-tr" />
-                    <span className="corner corner-bl" />
-                    <span className="corner corner-br" />
+        <div className="loader-center">
+          {/* Corner brackets */}
+          <span className="corner corner-tl" />
+          <span className="corner corner-tr" />
+          <span className="corner corner-bl" />
+          <span className="corner corner-br" />
 
-                    {/* Brand */}
-                    <div className="loader-brand">
-                        <div className="loader-name">
-                            Gets<span>Ka</span>
-                        </div>
-                        <div className="loader-sub">Admin Panel</div>
-                    </div>
-
-                    {/* Progress */}
-                    <div className="loader-bar-wrap">
-                        <div className="loader-bar" />
-                    </div>
-
-                    {/* Status */}
-                    <div className="loader-status">Initializing system...</div>
-                </div>
+          {/* Brand */}
+          <div className="loader-brand">
+            <div className="loader-name">
+              Gets<span>Ka</span>
             </div>
-        </>
-    );
+            <div className="loader-sub">Admin Panel</div>
+          </div>
+
+          {/* Progress */}
+          <div className="loader-bar-wrap">
+            <div className="loader-bar" />
+          </div>
+
+          {/* Status */}
+          <div className="loader-status">Initializing system...</div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default AdminLoader;
