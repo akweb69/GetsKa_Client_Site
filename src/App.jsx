@@ -10,6 +10,10 @@ import Contact from './pages/Contact'
 import HireDesigner from './pages/HireDesigner'
 import HireDesignerDetail from './pages/HireDesignerDetail'
 import Branding from './pages/Branding'
+import AdminLayout from './AdminCode/Layout/AdminLayout'
+import AdminDashboard from './AdminCode/Pages/AdminDashboard'
+import ManageHeroSection from './AdminCode/Pages/ManageHeroSection'
+import Settings from './AdminCode/Pages/Settings'
 
 function App() {
   return (
@@ -25,6 +29,13 @@ function App() {
         <Route path="hire-designer" element={<HireDesigner />} />
         <Route path="hire-designer/:id" element={<HireDesignerDetail />} />
         <Route path="branding" element={<Branding />} />
+      </Route>
+      {/* admin routes */}
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={< AdminDashboard />} />
+        <Route path="manageHeroSection" element={< ManageHeroSection />} />
+        <Route path="settings" element={< Settings />} />
+
       </Route>
     </Routes>
   )

@@ -73,7 +73,7 @@ const Navbar = () => {
                         {link.subCategories.map((sub) => (
                           <Link
                             key={sub}
-                            to={`${link.path}/${sub.toLowerCase().replace(/\s+/g, '-')}`} // example slug
+                            to={`${link.path}/${sub.toLowerCase().replace(/\s+/g, '-')}`}
                             className="block px-5 py-2.5 text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 transition-colors"
                             onClick={() => setActiveDropdown(null)}
                           >
