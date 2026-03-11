@@ -11,6 +11,7 @@ const Navbar = () => {
     { name: "Hero Section", path: "/admin/manage-hero-section", icon: "◈" },
     { name: "Services", path: "/admin/manage-services", icon: "◎" },
     { name: "Products", path: "/admin/manage-products", icon: "▣" },
+    { name: "Categories", path: "/admin/manage-categories", icon: "▣" },
     { name: "Designers", path: "/admin/manage-designers", icon: "◉" },
     { name: "Orders", path: "/admin/manage-orders", icon: "◫" },
     { name: "Settings", path: "/admin/settings", icon: "⚙" },

@@ -14,6 +14,8 @@ import AdminLayout from './AdminCode/Layout/AdminLayout'
 import AdminDashboard from './AdminCode/Pages/AdminDashboard'
 import ManageHeroSection from './AdminCode/Pages/ManageHeroSection'
 import Settings from './AdminCode/Pages/Settings'
+import ManageProducts from './AdminCode/Pages/ManageProducts'
+import ManageCategories from './AdminCode/Pages/ManageCategories'
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
         <Route index element={< AdminDashboard />} />
         <Route path="manageHeroSection" element={< ManageHeroSection />} />
         <Route path="settings" element={< Settings />} />
+        <Route path="manage-products" element={< ManageProducts />} />
+        <Route path="manage-categories" element={< ManageCategories />} />
 
       </Route>
     </Routes>
