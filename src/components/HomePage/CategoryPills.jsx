@@ -5,13 +5,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-import businessCardImg from "../../assets/Business card 2.png";
-import stickerImg from "../../assets/Sticker.png";
-import flyerImg from "../../assets/Flyer.png";
-import stationaryImg from "../../assets/Stationery 1.png";
-import letterHeadImg from "../../assets/Letter Head.png";
-import bannerImg from "../../assets/Bann 1.png";
-import productLabelImg from "../../assets/Product Label 1.png";
 import useAllCategories from "../../AdminCode/Hooks/useAllCategories";
 
 const CategoryPills = () => {
