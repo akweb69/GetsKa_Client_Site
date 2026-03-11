@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
-// Images (adjust paths if needed — recommended: move to /public/assets/ and use /assets/... paths)
 import businessCardImg from "../../assets/Business card 2.png";
 import stickerImg from "../../assets/Sticker.png";
 import flyerImg from "../../assets/Flyer.png";
@@ -13,8 +12,11 @@ import stationaryImg from "../../assets/Stationery 1.png";
 import letterHeadImg from "../../assets/Letter Head.png";
 import bannerImg from "../../assets/Bann 1.png";
 import productLabelImg from "../../assets/Product Label 1.png";
+import useAllCategories from "../../AdminCode/Hooks/useAllCategories";
 
 const CategoryPills = () => {
+
+    const { allCategories, isLoading } = useAllCategories();
 
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
@@ -68,12 +70,6 @@ const CategoryPills = () => {
             />
         );
     }
-
-
-
-
-
-
     // Memoize settings so they don't recreate on every render
     const settings = useMemo(
         () => ({
@@ -133,23 +129,20 @@ const CategoryPills = () => {
         []
     );
 
-    const categories = [
-        { name: "Business Card", img: businessCardImg },
-        { name: "Sticker Design", img: stickerImg },
-        { name: "Flyer & Leaflets", img: flyerImg },
-        { name: "Stationary Design", img: stationaryImg },
-        { name: "Letter Head Design", img: letterHeadImg },
-        { name: "Banner Design", img: bannerImg },
-        { name: "Product Label", img: productLabelImg },
-        { name: "Letter Head Design", img: letterHeadImg },
-        { name: "Banner Design", img: bannerImg },
-        { name: "Product Label", img: productLabelImg },
-    ];
+    if (isLoading) {
+        return (
+            <div className="w-full flex items-center justify-center py-10">
+                <p className="text-gray-500 text-lg">Loading categories...</p>
+            </div>
+        );
+    }
+
+
 
     return (
         <div className="w-full">
             <Slider {...settings}>
-                {categories.map((category, index) => (
+                {allCategories?.map((category, index) => (
                     <div key={index} className="px-2 sm:px-3">
                         <div
                             className={`
@@ -161,14 +154,14 @@ const CategoryPills = () => {
                               rounded-full bg-purple-100 flex items-center justify-center 
                               overflow-hidden shadow-sm group-hover:scale-105 transition-transform">
                                 <img
-                                    src={category.img}
-                                    alt={`${category.name} icon`}
+                                    src={category?.cat_img}
+                                    alt={`${category?.cat_name} icon`}
                                     className="w-5/6 h-5/6 object-contain"
                                     loading="lazy"
                                 />
                             </div>
                             <p className="text-sm sm:text-base font-medium text-[#3A456F] text-center group-hover:text-purple-700 transition-colors">
-                                {category.name}
+                                {category?.cat_name}
                             </p>
                         </div>
                     </div>
