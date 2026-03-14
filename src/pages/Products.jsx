@@ -6,7 +6,7 @@ import MostPopularProducts from '../components/HomePage/MostPopularProducts'
 
 
 
-const sideCategories = ['Business Essentials', 'Marketing Materials', 'Labels & Stickers', 'Promotional Items', 'Banners, Poster & Signs', 'Apparel LIM', 'Forms & Packages']
+
 
 const Products = () => {
   return (
