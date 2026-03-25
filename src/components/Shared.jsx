@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
-import hiredesigner from '../assets/hire-designer--1.png'
+import hiredesigner from '../assets/hhhhhhhhhhhhhhhhhhhhhhhhh.png'
 import productImage from '../assets/Image.png'
 
 // ─── Hero Banner (purple with decorative arcs) ───────────────────────────────
@@ -202,8 +202,34 @@ export const PopularChoices = () => {
 
 // ─── Hire Designers Block ─────────────────────────────────────────────────────
 export const HireDesignersBlock = () => (
-  <section className="w-11/12 mx-auto my-16 md:my-24">
-    <img src={hiredesigner} alt="Hire Designers" className="w-full object-cover rounded-xl" />
+  <section className="w-11/12 mx-auto my-16 md:my-24 bg-[#09164B] rounded-3xl text-white overflow-hidden">
+    <div className="w-full grid md:grid-cols-2 gap-4 items-center h-full">
+      {/* left side ----> */}
+      <div className="w-full flex justify-center items-center p-10 lg:p-16">
+        <img src={hiredesigner} alt="Loading..." className="w-full h-full" />
+      </div>
+      {/* right side ----> */}
+      <div className="">
+        <h1 className="text-6xl font-bold mb-4">
+          Hire Designers
+        </h1>
+        <div className="w-full md:max-w-md mb-4 text-[#F2EDFF]">
+          Find skilled designers for both freelance projects and full-time opportunities. Enhance your brand with expert design solutions.
+        </div>
+
+        <div className="flex gap-4 md:flex-row flex-col items-center">
+
+          <Link to="/hire-designer" className="px-4 p-2 bg-[#5216E7]  rounded hover:bg-transparent hover:text-white hover:border hover:border-[#5216E7] cursor-pointer  ">Hire Designers</Link>
+
+          <Link to="/services" className="text-[#C4ABFE] border border-[#C4ABFE] rounded p-2 px-4 cursor-pointer hover:bg-[#5216E7]  hover:text-white hover:border-none  ">Explore services</Link>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
   </section>
 )
 

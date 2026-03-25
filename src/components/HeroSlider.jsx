@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import useHeroSlider from "../AdminCode/Hooks/useHeroSectionSlider";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { Link } from "react-router-dom";
 
 /* ─── Skeleton Loader ─────────────────────────────────── */
 const SkeletonLoader = () => (
@@ -190,15 +191,15 @@ const HeroSlider = () => {
                     {slide?.button1 && (
                         <button className="group relative px-7 py-3 rounded-full bg-white text-gray-950 text-sm font-semibold tracking-wide
               hover:bg-indigo-100 active:scale-95 transition-all duration-200 overflow-hidden shadow-lg shadow-black/30">
-                            <span className="relative z-10">{slide.button1}</span>
+                            <Link to="/hire-designer" className="relative z-10">{slide.button1}</Link>
                             <span className="absolute inset-0 bg-indigo-400/20 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
                         </button>
                     )}
                     {slide?.button2 && (
-                        <button className="px-7 py-3 rounded-full border border-white/25 text-white text-sm font-medium tracking-wide
+                        <Link to="/services" className="px-7 py-3 rounded-full border border-white/25 text-white text-sm font-medium tracking-wide
               hover:bg-white/10 hover:border-white/50 active:scale-95 transition-all duration-200 backdrop-blur-sm">
                             {slide.button2}
-                        </button>
+                        </Link>
                     )}
                 </div>
 
