@@ -16,6 +16,7 @@ import ManageHeroSection from './AdminCode/Pages/ManageHeroSection'
 import Settings from './AdminCode/Pages/Settings'
 import ManageProducts from './AdminCode/Pages/ManageProducts'
 import ManageCategories from './AdminCode/Pages/ManageCategories'
+import SignUp, { Login } from './AdminCode/Auth/AuthScreen'
 
 function App() {
   return (
@@ -31,7 +32,19 @@ function App() {
         <Route path="hire-designer" element={<HireDesigner />} />
         <Route path="hire-designer/:id" element={<HireDesignerDetail />} />
         <Route path="branding" element={<Branding />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="login" element={<Login />} />
       </Route>
+
+
+
+
+
+
+
+
+
+
       {/* admin routes */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={< AdminDashboard />} />

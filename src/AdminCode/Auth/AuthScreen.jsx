@@ -83,7 +83,7 @@ export const SignUp = () => {
     const [showPass, setShowPass] = useState(false)
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4" style={{ background: BG }}>
+        <div className="min-h-screen flex items-center justify-center p-4 mb-20" style={{ background: BG }}>
             <div
                 className="relative w-full max-w-[460px] rounded-3xl p-10"
                 style={{ background: CARD }}
@@ -170,7 +170,7 @@ export const Login = () => {
     const [showPass, setShowPass] = useState(false)
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4" style={{ background: BG }}>
+        <div className="min-h-screen flex items-center justify-center p-4 mb-20" style={{ background: BG }}>
             <div
                 className="relative w-full max-w-[460px] rounded-3xl p-10"
                 style={{ background: CARD }}
