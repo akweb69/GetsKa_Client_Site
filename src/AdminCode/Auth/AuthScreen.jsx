@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff, X } from 'lucide-react'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+// import motion for animation
+import { motion } from 'framer-motion'
 
 /* ─── shared colours ────────────────────────────────────────── */
 const BG = '#0d0d1f'          // dark navy page bg
@@ -60,6 +64,7 @@ const AuthInput = ({ type = 'text', placeholder, value, onChange, showToggle, on
     </div>
 )
 
+
 /* ─── Social button ───────────────────────────────────────────*/
 const SocialBtn = ({ icon, onClick }) => (
     <button
@@ -81,6 +86,46 @@ export const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPass, setShowPass] = useState(false)
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+
+    // user info save in DB and then navigate to dashboard or home page
+    const handleSignUp = async () => {
+        // Implementation for sign up logic
+        const finalUserData = {
+            name,
+            email,
+            password,
+            role: "user",
+            isVerified: true,
+            isBlocked: false
+        }
+
+        if (!name || !email || !password) {
+            toast.error("Please fill in all fields.");
+            return;
+        }
+
+        // first  check if user already exists with the email
+        const existingUser = await axios.get(`${import.meta.env.VITE_BASE_URL}/users/${email}`);
+        if (existingUser.data) {
+            toast.error("User with this email already exists. Please try logging in.");
+            return;
+        }
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users`, finalUserData);
+        if (response.status === 200) {
+            toast.success("User registered successfully!");
+            navigate('/login');
+        } else {
+            toast.error("Failed to register user. Please try again.");
+        }
+
+    };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4 mb-20" style={{ background: BG }}>
@@ -130,6 +175,7 @@ export const SignUp = () => {
 
                 {/* CTA */}
                 <button
+                    onClick={handleSignUp}
                     type="button"
                     className="w-full py-4 rounded-xl text-white font-semibold text-[16px] tracking-wide transition-all hover:brightness-110 active:scale-[.98] mb-5"
                     style={{ background: PURPLE, boxShadow: `0 6px 24px ${PURPLE}55` }}
@@ -138,15 +184,15 @@ export const SignUp = () => {
                 </button>
 
                 {/* divider */}
-                <p className="text-center text-[13.5px] mb-4" style={{ color: TEXT_MUTED }}>
+                {/* <p className="text-center text-[13.5px] mb-4" style={{ color: TEXT_MUTED }}>
                     or continue with
-                </p>
+                </p> */}
 
                 {/* social */}
-                <div className="flex gap-3 mb-6">
+                {/* <div className="flex gap-3 mb-6">
                     <SocialBtn icon={<GoogleIcon />} onClick={() => { }} />
                     <SocialBtn icon={<FacebookIcon />} onClick={() => { }} />
-                </div>
+                </div> */}
 
                 {/* switch */}
                 <p className="text-center text-[13.5px]" style={{ color: TEXT_MUTED }}>
@@ -160,6 +206,7 @@ export const SignUp = () => {
     )
 }
 
+
 /* ═══════════════════════════════════════════════════════════════
    LOG IN SCREEN
 ═══════════════════════════════════════════════════════════════ */
@@ -168,6 +215,35 @@ export const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPass, setShowPass] = useState(false)
+    const [showErrorMassamge, setShowErrorMassage] = useState(null)
+
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    // login user function---->
+    const handleLogin = async () => {
+        setShowErrorMassage(null);
+        if (!email || !password) {
+            toast.error("Please fill in all fields.");
+            setShowErrorMassage("Please fill in all fields.");
+            return;
+        }
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login`, { email, password });
+            if (response.status === 200) {
+                toast.success("Login successful!");
+                navigate('/dashboard');
+            }
+        } catch (err) {
+            const msg = err.response?.status === 401
+                ? "Unauthorized. Please check your credentials."
+                : "Login failed. Please try again.";
+            setShowErrorMassage(msg);
+            toast.error(msg);
+        }
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4 mb-20" style={{ background: BG }}>
@@ -188,9 +264,24 @@ export const Login = () => {
                 <h1 className="text-[42px] font-extrabold leading-tight mb-1" style={{ color: TEXT_DARK }}>
                     Welcome
                 </h1>
-                <p className="text-[15px] mb-9" style={{ color: TEXT_MUTED }}>
+                <p className="text-[15px] mb-5" style={{ color: TEXT_MUTED }}>
                     We are really happy to see you again!
                 </p>
+
+                {
+                    showErrorMassamge != null && <div className="mb-4">
+                        {/* show error massage here */}
+                        <motion.div
+                            // animation
+                            initial={{ opacity: 0, y: -100 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+
+                            className="w-full p-4 rounded-lg border border-rose-600 bg-rose-50 shadow text-xs md:text-sm">
+                            {showErrorMassamge}
+                        </motion.div>
+                    </div>
+                }
 
                 {/* fields */}
                 <div className="flex flex-col gap-3 mb-2">
@@ -223,6 +314,7 @@ export const Login = () => {
 
                 {/* CTA */}
                 <button
+                    onClick={handleLogin}
                     type="button"
                     className="w-full py-4 rounded-xl text-white font-semibold text-[16px] tracking-wide transition-all hover:brightness-110 active:scale-[.98] mb-5"
                     style={{ background: PURPLE, boxShadow: `0 6px 24px ${PURPLE}55` }}
@@ -231,15 +323,15 @@ export const Login = () => {
                 </button>
 
                 {/* divider */}
-                <p className="text-center text-[13.5px] mb-4" style={{ color: TEXT_MUTED }}>
+                {/* <p className="text-center text-[13.5px] mb-4" style={{ color: TEXT_MUTED }}>
                     or continue with
-                </p>
+                </p> */}
 
                 {/* social */}
-                <div className="flex gap-3 mb-6">
+                {/* <div className="flex gap-3 mb-6">
                     <SocialBtn icon={<GoogleIcon />} onClick={() => { }} />
                     <SocialBtn icon={<FacebookIcon />} onClick={() => { }} />
-                </div>
+                </div> */}
 
                 {/* switch */}
                 <p className="text-center text-[13.5px]" style={{ color: TEXT_MUTED }}>
