@@ -14,6 +14,7 @@ import {
     FiUploadCloud,
     FiAlertTriangle,
     FiRefreshCw,
+    FiAlignLeft,   // New icon for description
 } from "react-icons/fi";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import useAllCategories from "../Hooks/useAllCategories";
@@ -114,6 +115,7 @@ const DeleteModal = ({ category, onConfirm, onCancel, loading }) => (
 /* ─── Edit Modal ────────────────────────────────────────── */
 const EditModal = ({ category, onSave, onCancel, imgbb_api_key }) => {
     const [name, setName] = useState(category.cat_name || "");
+    const [sortDesc, setSortDesc] = useState(category.cat_sort_desc || ""); // New field
     const [imageFile, setImageFile] = useState(null);
     const [preview, setPreview] = useState(category.cat_img || "");
     const [saving, setSaving] = useState(false);
@@ -140,9 +142,14 @@ const EditModal = ({ category, onSave, onCancel, imgbb_api_key }) => {
                 );
                 imgUrl = res.data.data.url;
             }
-            await onSave({ cat_name: name.trim(), cat_img: imgUrl });
+            await onSave({
+                cat_name: name.trim(),
+                cat_img: imgUrl,
+                cat_sort_desc: sortDesc.trim()   // New field
+            });
         } catch {
             toast.error("Failed to save");
+        } finally {
             setSaving(false);
         }
     };
@@ -210,6 +217,22 @@ const EditModal = ({ category, onSave, onCancel, imgbb_api_key }) => {
                             placeholder="e.g. Electronics"
                             className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-100 placeholder-gray-600
                 focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/50 transition-all duration-200"
+                        />
+                    </div>
+
+                    {/* New Field: Sort Description */}
+                    <div className="mb-6 space-y-1.5">
+                        <label className="text-sm text-gray-400 font-medium flex items-center gap-1.5">
+                            <FiAlignLeft className="w-3.5 h-3.5 text-violet-400" />
+                            Sort Description (Optional)
+                        </label>
+                        <textarea
+                            value={sortDesc}
+                            onChange={(e) => setSortDesc(e.target.value)}
+                            placeholder="Short description for sorting or display (e.g. Best selling, New arrival, etc.)"
+                            rows={3}
+                            className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600
+                focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/50 transition-all duration-200 resize-y min-h-[80px]"
                         />
                     </div>
 
@@ -284,9 +307,18 @@ const CategoryCard = ({ item, index, onEdit, onDelete }) => (
         </div>
 
         {/* Body */}
-        <div className="px-4 py-3 flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-violet-400 flex-shrink-0" />
-            <p className="text-gray-100 font-semibold text-sm truncate">{item.cat_name}</p>
+        <div className="px-4 py-4">
+            <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-violet-400 flex-shrink-0" />
+                <p className="text-gray-100 font-semibold text-sm truncate">{item.cat_name}</p>
+            </div>
+
+            {/* New: Sort Description */}
+            {item.cat_sort_desc && (
+                <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 mt-1">
+                    {item.cat_sort_desc}
+                </p>
+            )}
         </div>
     </motion.div>
 );
@@ -299,6 +331,7 @@ const ManageCategories = () => {
 
     /* Form state */
     const [catName, setCatName] = useState("");
+    const [catSortDesc, setCatSortDesc] = useState("");        // ← New state
     const [imageFile, setImageFile] = useState(null);
     const [preview, setPreview] = useState(null);
     const [progress, setProgress] = useState(0);
@@ -344,10 +377,17 @@ const ManageCategories = () => {
                 }
             );
             const cat_img = imgRes.data.data.url;
-            await axios.post(`${base_url}/categories`, { cat_name: catName.trim(), cat_img });
+
+            await axios.post(`${base_url}/categories`, {
+                cat_name: catName.trim(),
+                cat_img,
+                cat_sort_desc: catSortDesc.trim()   // ← New field
+            });
+
             toast.success("Category added!", { id: toastId });
             refetch();
             setCatName("");
+            setCatSortDesc("");        // Reset new field
             clearImage();
         } catch {
             toast.error("Failed to add category", { id: toastId });
@@ -525,6 +565,22 @@ const ManageCategories = () => {
                                     placeholder="e.g. Electronics"
                                     className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-gray-100 placeholder-gray-600
                     focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/50 transition-all duration-200"
+                                />
+                            </div>
+
+                            {/* New Field: Sort Description in Add Form */}
+                            <div className="space-y-1.5">
+                                <label className="text-sm font-medium text-gray-400 flex items-center gap-1.5">
+                                    <FiAlignLeft className="w-3.5 h-3.5 text-violet-400" />
+                                    Sort Description (Optional)
+                                </label>
+                                <textarea
+                                    value={catSortDesc}
+                                    onChange={(e) => setCatSortDesc(e.target.value)}
+                                    placeholder="Short description for sorting or display purpose..."
+                                    rows={3}
+                                    className="w-full bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm text-gray-100 placeholder-gray-600
+                    focus:outline-none focus:ring-2 focus:ring-violet-500/40 focus:border-violet-500/50 transition-all duration-200 resize-y min-h-[80px]"
                                 />
                             </div>
 

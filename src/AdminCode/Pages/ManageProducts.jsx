@@ -45,6 +45,7 @@ const uploadToImgBB = async (file, apiKey) => {
     return data.data.url;
 };
 
+
 /* ─────────────────────────────────────────────
    MAIN COMPONENT
 ───────────────────────────────────────────── */

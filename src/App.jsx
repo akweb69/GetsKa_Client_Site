@@ -16,7 +16,8 @@ import ManageHeroSection from './AdminCode/Pages/ManageHeroSection'
 import Settings from './AdminCode/Pages/Settings'
 import ManageProducts from './AdminCode/Pages/ManageProducts'
 import ManageCategories from './AdminCode/Pages/ManageCategories'
-import SignUp, { Login } from './AdminCode/Auth/AuthScreen'
+import { Login, SignUp } from './AdminCode/Auth/AuthScreen'
+
 
 function App() {
   return (
