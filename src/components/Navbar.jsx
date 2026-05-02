@@ -15,6 +15,8 @@ import logo from '../assets/Getska-design-Logo-Color-Variation-green-without-BG.
 import useAllCategories from '../AdminCode/Hooks/useAllCategories'
 import { useAuth } from '../Context/AuthContext'
 import toast from 'react-hot-toast'
+import useMyCart from '../AdminCode/Hooks/useMyCart'
+import AdminLoader from '../AdminCode/Components/AdminLoader'
 
 /* ─────────────────────── animation variants ─────────────────────── */
 
@@ -308,7 +310,8 @@ const Navbar = () => {
   const navRef = useRef(null)
   const { user, userLoading, logout } = useAuth()
 
-  const { allCategories = [] } = useAllCategories()
+  const { allCategories = [] } = useAllCategories();
+  const { isLoading, myCart } = useMyCart(user?.email);
 
   const navLinks = useMemo(() => [
     { name: 'Home', path: '/' },
@@ -354,6 +357,12 @@ const Navbar = () => {
 
   /* Hamburger bar spring */
   const hamSpring = { type: 'spring', stiffness: 420, damping: 28 }
+
+
+  // check loading---->
+  if (userLoading) {
+    return <AdminLoader />
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full font-sans">
@@ -498,7 +507,7 @@ const Navbar = () => {
                   animate={{ scale: 1 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 20, delay: 0.5 }}
                 >
-                  3
+                  {myCart?.length || 0}
                 </motion.span>
               </div>
 
