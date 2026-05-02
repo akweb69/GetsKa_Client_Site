@@ -14,6 +14,7 @@ import {
 import logo from '../assets/Getska-design-Logo-Color-Variation-green-without-BG.png'
 import useAllCategories from '../AdminCode/Hooks/useAllCategories'
 import { useAuth } from '../Context/AuthContext'
+import toast from 'react-hot-toast'
 
 /* ─────────────────────── animation variants ─────────────────────── */
 
@@ -305,7 +306,7 @@ const Navbar = () => {
   const [activeMobileDropdown, setActiveMobileDropdown] = useState(null)
   const [searchValue, setSearchValue] = useState('')
   const navRef = useRef(null)
-  const { user, userLoading } = useAuth()
+  const { user, userLoading, logout } = useAuth()
 
   const { allCategories = [] } = useAllCategories()
 
@@ -330,6 +331,13 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' },
     { name: 'Hire Designer', path: '/hire-designer' },
   ], [allCategories])
+
+  const handleLogOut = async () => {
+    await logout();
+    navigate('/login');
+    toast.success("Logout successful!");
+
+  }
 
   /* close on outside click */
   useEffect(() => {
@@ -502,7 +510,7 @@ const Navbar = () => {
                       user && user?.email ? (
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-100">
-                            <img src={user.photoURL} alt={user.displayName.slice(0, 1)} className="w-full h-full object-cover" />
+                            <img src={user.photoURL} referrerPolicy='no-referrer' alt={user.displayName.slice(0, 1)} className="w-full h-full object-cover" />
                           </div>
                           <Link to="/user" className="text-[12px] font-semibold text-white border border-[#6366f1] rounded p-1 px-2 cursor-pointer hover:bg-[#6366f1] hover:text-white ">
                             Dashboard
@@ -747,26 +755,42 @@ const Navbar = () => {
               </motion.div>
 
               {/* Auth buttons */}
-              <motion.div
-                className="pt-5 flex gap-3 px-1"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.32, type: 'spring', stiffness: 300, damping: 26 }}
-              >
-                <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-                  <Link to="/login" onClick={() => setMenuOpen(false)}
-                    className="block text-center py-3.5 rounded-xl text-blue-100 font-medium border border-white/20 hover:bg-white/10 transition-colors duration-150">
-                    Log in
-                  </Link>
-                </motion.div>
-                <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-                  <Link to="/signup" onClick={() => setMenuOpen(false)}
-                    className="block text-center py-3.5 rounded-xl text-white font-semibold"
-                    style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-                    Sign up
-                  </Link>
-                </motion.div>
-              </motion.div>
+              {
+                user && user.email ? (
+                  <>
+                    <Link to="/login" onClick={() => handleLogOut()}
+                      className="block text-center bg-red-500 py-3.5 rounded-xl text-blue-100 font-medium border border-white/20 hover:bg-white/10 transition-colors duration-150">
+                      Log Out
+                    </Link>
+                  </>
+                )
+
+                  :
+                  (
+                    <>
+                      <motion.div
+                        className="pt-5 flex gap-3 px-1"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.32, type: 'spring', stiffness: 300, damping: 26 }}
+                      >
+                        <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                          <Link to="/login" onClick={() => setMenuOpen(false)}
+                            className="block text-center py-3.5 rounded-xl text-blue-100 font-medium border border-white/20 hover:bg-white/10 transition-colors duration-150">
+                            Log in
+                          </Link>
+                        </motion.div>
+                        <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
+                          <Link to="/signup" onClick={() => setMenuOpen(false)}
+                            className="block text-center py-3.5 rounded-xl text-white font-semibold"
+                            style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
+                            Sign up
+                          </Link>
+                        </motion.div>
+                      </motion.div>
+                    </>
+                  )
+              }
 
             </div>
           </motion.div>
