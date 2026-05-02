@@ -375,7 +375,7 @@ const ProductDetail = () => {
 
     }
 
-    const res = await axios.get(`${base_url}/cart`, cartData);
+    const res = await axios.post(`${base_url}/cart`, cartData);
     if (res.data) {
       toast.dismiss();
       toast.success("✅ successfully added to cart")
