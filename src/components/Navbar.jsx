@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import logo from '../assets/Getska-design-Logo-Color-Variation-green-without-BG.png'
 import useAllCategories from '../AdminCode/Hooks/useAllCategories'
+import { useAuth } from '../Context/AuthContext'
 
 /* ─────────────────────── animation variants ─────────────────────── */
 
@@ -304,6 +305,7 @@ const Navbar = () => {
   const [activeMobileDropdown, setActiveMobileDropdown] = useState(null)
   const [searchValue, setSearchValue] = useState('')
   const navRef = useRef(null)
+  const { user, userLoading } = useAuth()
 
   const { allCategories = [] } = useAllCategories()
 
@@ -492,23 +494,45 @@ const Navbar = () => {
                 </motion.span>
               </div>
 
-              <Link to="/login"
-                className="hidden lg:block text-[13px] font-medium text-blue-100/75 hover:text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-150">
-                Log in
-              </Link>
+              {
+                userLoading ? <div className="animate-pulse w-9 h-9 rounded-full bg-gray-200"></div> : (
 
-              <motion.div
-                className="hidden lg:block"
-                whileHover={{ scale: 1.04, y: -1 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-              >
-                <Link to="/signup"
-                  className="flex items-center text-[13px] font-semibold text-white px-5 py-2.5 rounded-full"
-                  style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
-                  Sign up
-                </Link>
-              </motion.div>
+                  <>
+                    {
+                      user && user?.email ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-100">
+                            <img src={user.photoURL} alt={user.displayName.slice(0, 1)} className="w-full h-full object-cover" />
+                          </div>
+                          <Link to="/user" className="text-[12px] font-semibold text-white border border-[#6366f1] rounded p-1 px-2 cursor-pointer hover:bg-[#6366f1] hover:text-white ">
+                            Dashboard
+                          </Link>
+                        </div>
+                      ) : <>
+                        <Link to="/login"
+                          className="hidden lg:block text-[13px] font-medium text-blue-100/75 hover:text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-colors duration-150">
+                          Log in
+                        </Link>
+
+                        <motion.div
+                          className="hidden lg:block"
+                          whileHover={{ scale: 1.04, y: -1 }}
+                          whileTap={{ scale: 0.97 }}
+                          transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                        >
+                          <Link to="/signup"
+                            className="flex items-center text-[13px] font-semibold text-white px-5 py-2.5 rounded-full"
+                            style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)' }}>
+                            Sign up
+                          </Link>
+                        </motion.div>
+                      </>
+                    }
+                  </>
+
+
+                )
+              }
 
               {/* HAMBURGER */}
               <button
@@ -570,7 +594,7 @@ const Navbar = () => {
                       <CatCard
                         key={cat._id || idx}
                         cat={cat}
-                        to={`/products?category=${encodeURIComponent(cat.cat_name)}`}
+                        to={`/category_product/${encodeURIComponent(cat.cat_name)}`}
                         onClick={() => setActiveDropdown(null)}
                         badge={idx === 0 ? 'HOT' : idx === 1 ? 'NEW' : null}
                       />
@@ -691,7 +715,7 @@ const Navbar = () => {
                                     <MobileCatItem
                                       key={cat._id || idx}
                                       cat={cat}
-                                      to={`/products?category=${encodeURIComponent(cat.cat_name)}`}
+                                      to={`/category_product/${encodeURIComponent(cat.cat_name)}`}
                                       onClick={() => { setMenuOpen(false); setActiveMobileDropdown(null) }}
                                     />
                                   ))}

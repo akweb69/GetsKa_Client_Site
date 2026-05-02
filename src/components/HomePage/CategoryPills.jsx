@@ -1,10 +1,12 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useAllCategories from "../../AdminCode/Hooks/useAllCategories";
+import { useNavigate } from "react-router-dom";
 
 const CategoryPills = () => {
     const { allCategories, isLoading } = useAllCategories();
     const scrollRef = useRef(null);
+    const navigate = useNavigate();
 
     // Function to handle scrolling left and right
     const scroll = (direction) => {
@@ -38,7 +40,7 @@ const CategoryPills = () => {
             {/* --- Left Arrow --- */}
             <button
                 onClick={() => scroll("left")}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-[#5a11e8] text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-purple-700 hidden md:flex"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-[#5a11e8] text-white p-2 rounded-full shadow-lg opacity-0 hover:opacity-100 transition-all duration-300 hover:bg-purple-700 hidden md:flex"
                 aria-label="Scroll Left"
             >
                 <ChevronLeft size={24} />
@@ -52,16 +54,21 @@ const CategoryPills = () => {
             >
                 {allCategories?.map((category) => (
                     <div
+
+                        onClick={() => {
+                            navigate(`/category_product/${category?.cat_name}`)
+                        }}
+
                         key={category._id}
                         className="flex-shrink-0 snap-start"
                     >
                         <div className="group flex flex-col items-center gap-3 cursor-pointer w-24 sm:w-28 lg:w-32">
                             {/* Image Circle */}
                             <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 
-                                rounded-full bg-gray-100 flex items-center justify-center 
-                                overflow-hidden shadow-sm group-hover:shadow-md 
-                                group-hover:scale-110 transition-all duration-300 
-                                border-2 border-transparent group-hover:border-purple-500">
+                                rounded-full bg-white flex items-center justify-center 
+                                overflow-hidden shadow-sm hover:shadow-md 
+                                hover:scale-110 transition-all duration-300 
+                                border-2 border-transparent hover:border-purple-200">
                                 <img
                                     src={category?.cat_img || 'https://via.placeholder.com/150'}
                                     alt={category?.cat_name}
@@ -71,7 +78,7 @@ const CategoryPills = () => {
                             </div>
                             {/* Text Label */}
                             <p className="text-xs sm:text-sm font-semibold text-[#3A456F] 
-                               text-center group-hover:text-purple-600 transition-colors duration-300 
+                               text-center hover:text-purple-600 transition-colors duration-300 
                                truncate w-full px-1">
                                 {category?.cat_name}
                             </p>
@@ -83,7 +90,7 @@ const CategoryPills = () => {
             {/* --- Right Arrow --- */}
             <button
                 onClick={() => scroll("right")}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-[#5a11e8] text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-purple-700 hidden md:flex"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-[#5a11e8] text-white p-2 rounded-full shadow-lg opacity-0 hover:opacity-100 transition-all duration-300 hover:bg-purple-700 hidden md:flex"
                 aria-label="Scroll Right"
             >
                 <ChevronRight size={24} />

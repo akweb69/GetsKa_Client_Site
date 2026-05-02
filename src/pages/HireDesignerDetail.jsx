@@ -1,22 +1,40 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Star, ArrowLeft } from 'lucide-react'
-import { PopularChoices, HireDesignersBlock } from '../components/Shared'
-
-const portfolioItems = [
-  { title: 'Interior Landing Page', tags: ['Branding','UI Design'] },
-  { title: 'Appointment App UI Design', tags: ['Branding','UI Design'] },
-  { title: 'Course Web UI Design', tags: ['Web Design','UI Design'] },
-  { title: 'Real Estate Landing Page', tags: ['UI Design','Web Design'] },
-  { title: 'Online Course UI Design', tags: ['Product Design','Online Course','UI Design'] },
-  { title: 'SAAS Product UI Design', tags: ['UI Design','App Design'] },
-  { title: 'Ecommerce App Design', tags: ['Ecommerce','Product Design'] },
-  { title: 'Education Dashboard Design', tags: ['UI Design','Dashboard Design'] },
-]
-
-const skills = ['UI Design','UI Design','Content Design','Social Design','Web Design','CSS Guide','Tool Design','Typography','UI Tool','Brand Design','UI Tool 2','UI Design 3','Experience & Development']
-const tools = ['Figma','Adobe XD','Sketch','Adobe Illustrator','Adobe Photoshop','Framer']
+import { HireDesignersBlock } from '../components/Shared'
+import useGetDesignerBy_Id from '../AdminCode/Hooks/useGetDesignerBy_Id'
+import AdminLoader from '../AdminCode/Components/AdminLoader'
 
 const HireDesignerDetail = () => {
+  const { id } = useParams()
+  const { DesignerDataLoading, DesignerData } = useGetDesignerBy_Id({ id })
+
+  // Backend থেকে আসা data (আপনি যে structure দিয়েছেন exact সেইটা)
+  const designer = DesignerData
+
+  // যদি data না আসে তাহলে loading দেখাবে
+  if (DesignerDataLoading) {
+    return (
+      <AdminLoader />
+    )
+  }
+
+  if (!designer) {
+    return (
+      <div className="bg-[#f5f5ff] min-h-screen flex items-center justify-center">
+        <p className="text-lg text-red-500">Designer data not found</p>
+      </div>
+    )
+  }
+
+  // About text এ newline কে break line এ convert
+  const aboutText = designer.about ? designer.about.replace(/\n/g, '<br />') : ''
+
+  // Tags string কে array তে convert করার helper function
+  const processTags = (tagsStr) => {
+    if (!tagsStr) return []
+    return tagsStr.split(',').map(tag => tag.trim()).filter(Boolean)
+  }
+
   return (
     <div className="bg-[#f5f5ff]">
       {/* Profile Section */}
@@ -27,27 +45,47 @@ const HireDesignerDetail = () => {
 
         <div className="bg-white rounded-2xl p-8 shadow-sm mb-6">
           <div className="flex flex-col md:flex-row gap-6 items-start">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-orange-200 to-orange-400 flex-shrink-0"></div>
+            <img
+              src={designer.profileImage}
+              alt={designer.name}
+              className="w-20 h-20 rounded-full object-cover flex-shrink-0 border-2 border-white shadow"
+              onError={(e) => {
+                e.target.onerror = null
+                e.target.src = 'https://via.placeholder.com/80?text=Profile'
+              }}
+            />
+
             <div className="flex-1">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900 font-display">Rakib Hasan</h1>
-                  <p className="text-gray-500 text-sm mb-2">UX Designer</p>
+                  <h1 className="text-2xl font-bold text-gray-900 font-display">{designer.name}</h1>
+                  <p className="text-gray-500 text-sm mb-2 capitalize">{designer.role}</p>
                   <div className="flex items-center gap-1 text-sm">
                     <Star size={14} className="text-yellow-400 fill-yellow-400" />
-                    <span className="font-semibold">4.9/5</span>
-                    <span className="text-gray-400">(221 jobs)</span>
+                    <span className="font-semibold">{designer.rating}/5</span>
+                    <span className="text-gray-400">({designer.jobs} jobs)</span>
                   </div>
                 </div>
+
                 <div className="flex flex-col items-end gap-3">
-                  <span className="text-2xl font-black text-primary">€20.00/hr</span>
+                  <span className="text-2xl font-black text-primary">
+                    €{designer.PricePerHour}.00/hr
+                  </span>
                   <div className="flex gap-3">
                     <button className="bg-primary hover:bg-primary-hover text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors">
                       Hire Now
                     </button>
-                    <Link to="/portfolio" className="border border-gray-200 text-gray-700 hover:border-primary hover:text-primary px-5 py-2 rounded-full text-sm font-semibold transition-colors">
-                      View Portfolio
-                    </Link>
+
+                    {designer.portfolio_link && (
+                      <a
+                        href={designer.portfolio_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="border border-gray-200 text-gray-700 hover:border-primary hover:text-primary px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+                      >
+                        View Portfolio
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -57,55 +95,107 @@ const HireDesignerDetail = () => {
 
         {/* Role & Bio */}
         <div className="bg-white rounded-2xl p-8 shadow-sm mb-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">UI/UX Designer | Product Designer</h2>
-          <h3 className="text-lg font-bold text-gray-900 mb-4">Web Designer | App Designer</h3>
-          <p className="text-gray-500 text-sm leading-relaxed mb-3">Hello, I'm Jamil, a professional UI/UX Designer.</p>
-          <p className="text-gray-500 text-sm leading-relaxed mb-3">
-            Driven by a passion for user-centric design and captivating digital journeys, I bring creativity and a problem-solving mindset to every project. With a focus on crafting user-friendly interfaces, I'm dedicated to blending artistic innovation with meticulous attention to detail.
-          </p>
-          <p className="text-gray-500 text-sm leading-relaxed mb-6">
-            I am a highly qualified individual for this position with hands-on experience in user research, usability testing, and user journey mapping. My ability to collaborate effectively with cross-functional teams, passion for continuous learning, and experiencing working remotely and onsite make me well-equipped to create exceptional user experiences.
-          </p>
+          <h2 className="text-lg font-bold text-gray-900 mb-1">Full Stack Web Developer</h2>
+          <h3 className="text-lg font-bold text-gray-900 mb-4">React • JavaScript • Modern Web Solutions</h3>
+
+          <div
+            className="text-gray-500 text-sm leading-relaxed mb-6 whitespace-pre-line"
+            dangerouslySetInnerHTML={{ __html: aboutText }}
+          />
 
           <h4 className="font-bold text-gray-900 text-sm mb-3">Skills</h4>
           <div className="flex flex-wrap gap-2 mb-5">
-            {skills.map(s => (
-              <span key={s} className="bg-primary-light text-primary text-xs px-3 py-1 rounded-full">{s}</span>
+            {designer.skills?.map((skill, index) => (
+              <span
+                key={index}
+                className="bg-primary-light text-primary text-xs px-3 py-1 rounded-full capitalize"
+              >
+                {skill}
+              </span>
             ))}
           </div>
 
           <h4 className="font-bold text-gray-900 text-sm mb-3">Tools</h4>
           <div className="flex flex-wrap gap-2">
-            {tools.map(t => (
-              <span key={t} className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full">{t}</span>
+            {designer.tools?.map((tool, index) => (
+              <span
+                key={index}
+                className="bg-gray-100 text-gray-600 text-xs px-3 py-1 rounded-full capitalize"
+              >
+                {tool}
+              </span>
             ))}
           </div>
         </div>
 
-        {/* Portfolio */}
+        {/* Portfolio Section */}
         <h2 className="text-2xl font-bold text-gray-900 font-display mb-6 mt-10">Portfolios</h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          {portfolioItems.map((p, i) => (
-            <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className={`h-52 flex items-center justify-center ${i % 3 === 0 ? 'bg-gray-900' : i % 3 === 1 ? 'bg-[#f5f5ff]' : 'bg-gray-800'}`}>
-                <span className="text-5xl">🎨</span>
-              </div>
-              <div className="p-4">
-                <h3 className="font-bold text-gray-900 mb-2">{p.title}</h3>
-                <div className="flex gap-2">
-                  {p.tags.map(tag => (
-                    <span key={tag} className="bg-primary-light text-primary text-xs px-2.5 py-1 rounded-full">{tag}</span>
-                  ))}
+          {designer.portfolios?.map((portfolio, i) => {
+            const tags = processTags(portfolio.tags)
+
+            return (
+              <div
+                key={i}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div
+                  className="h-52 bg-cover bg-center relative"
+                  style={{
+                    backgroundImage: portfolio.image
+                      ? `url(${portfolio.image})`
+                      : 'none',
+                    backgroundColor: '#f3f4f6'
+                  }}
+                >
+                  {!portfolio.image && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-6xl opacity-30">🌐</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4">
+                  <h3 className="font-bold text-gray-900 mb-2">{portfolio.title}</h3>
+
+                  {tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="bg-primary-light text-primary text-xs px-2.5 py-1 rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {portfolio.link && (
+                    <a
+                      href={portfolio.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary text-sm inline-flex items-center gap-1 hover:underline"
+                    >
+                      Visit Project →
+                    </a>
+                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
-        {/* Pagination */}
+        {/* Pagination - UI unchanged */}
         <div className="flex justify-center gap-2 mb-10">
           {['<', 1, 2, 3, '>'].map((p, i) => (
-            <button key={i} className={`w-8 h-8 rounded-lg text-sm font-medium border transition-colors ${p === 1 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary'}`}>
+            <button
+              key={i}
+              className={`w-8 h-8 rounded-lg text-sm font-medium border transition-colors 
+                ${p === 1 ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary'}`}
+            >
               {p}
             </button>
           ))}

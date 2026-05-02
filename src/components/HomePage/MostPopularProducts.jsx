@@ -32,7 +32,7 @@ const MostPopularProducts = () => {
                         <ul className="space-y-1  text-white bg-[#7F48FD] rounded-b-2xl ">
                             {allCategories?.map((item) => (
                                 <li key={item?._id}>
-                                    <Link to={`/category_products/${item?.cat_name}`} className="flex items-center justify-between py-1.5 hover:text-gray-200 transition-colors border-b border-white/20 p-4">
+                                    <Link to={`/category_product/${item?.cat_name}`} className="flex items-center justify-between py-1.5 hover:text-gray-200 transition-colors border-b border-white/20 p-4">
                                         <span className="text-lg">{item?.cat_name}</span>
                                         <ChevronRight size={16} className="text-white " />
                                     </Link>

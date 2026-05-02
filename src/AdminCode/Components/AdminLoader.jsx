@@ -200,7 +200,7 @@ const AdminLoader = () => {
             <div className="loader-name">
               Gets<span>Ka</span>
             </div>
-            <div className="loader-sub">Admin Panel</div>
+            {/* <div className="loader-sub">Admin Panel</div> */}
           </div>
 
           {/* Progress */}

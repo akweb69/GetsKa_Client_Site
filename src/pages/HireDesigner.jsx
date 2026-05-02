@@ -1,21 +1,23 @@
+import { useEffect } from 'react';
+import useAllDesigner from '../AdminCode/Hooks/useAllDesigner';
 import { HeroBanner, HireDesignersBlock, DesignerCard } from '../components/Shared'
+import AdminLoader from './../AdminCode/Components/AdminLoader';
 
-const designers = [
-  { id: '1', name: 'Jamil Hasan', role: 'Graphic Designer', rating: '4.9', jobs: '300', skills: ['Logo Design','Branding','Print Design','Banner Design'] },
-  { id: '2', name: 'Sanjida Islam', role: 'Graphic Designer', rating: '4.8', jobs: '250', skills: ['Logo Design','Trending','Print Design'] },
-  { id: '3', name: 'Rakib Hasan', role: 'UI/UX Designer', rating: '4.8', jobs: '200', skills: ['User Experience Design','Web Design','App Design'] },
-  { id: '4', name: 'Abdur Rahaman', role: 'Motion Designer', rating: '4.5', jobs: '220', skills: ['3D Motion','Animator','Logo Animation'] },
-  { id: '5', name: 'Abdul Karim', role: 'Web Developer', rating: '4.75', jobs: '250', skills: ['Web Application','Bootstrap','Web Design','React'] },
-  { id: '6', name: 'Abdul Karim', role: 'Wordpress Developer', rating: '4.8', jobs: '180', skills: ['Wordpress','Landing Page','Lead Generation','Elementor'] },
-  { id: '7', name: 'Emdad Islam', role: 'Content Writer', rating: '4.75', jobs: '220', skills: ['Copywriting','Blog','Article','SEO'] },
-  { id: '8', name: 'Sanjana Ahmed', role: 'Digital Marketer', rating: '4.75', jobs: '180', skills: ['Digital Marketing','SEO','Logo Generation','Google Ads'] },
-  { id: '9', name: 'Sanjida Islam', role: 'Web Designer', rating: '4.8', jobs: '190', skills: ['Web Design','CSS','HTML','Web Application'] },
-  { id: '10', name: 'Sorif Islam', role: 'Video Editor', rating: '4.75', jobs: '160', skills: ['Video Editing','Motion Design','Music Video','VFX & Duets'] },
-  { id: '11', name: 'Asif Mahmud', role: 'Web Designer', rating: '4.9', jobs: '160', skills: ['Web Design','CSS','HTML','Web Application'] },
-  { id: '12', name: 'Nahid Islam', role: 'Motion Designer', rating: '4.8', jobs: '260', skills: ['3D Motion','Animator','Logo Animation'] },
-]
 
 const HireDesigner = () => {
+
+  const { designerLoading, allDesigner } = useAllDesigner();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [allDesigner])
+
+  if (designerLoading) {
+    return (
+      <AdminLoader />
+    )
+  }
+
   return (
     <div className="bg-[#f5f5ff]">
       <HeroBanner
@@ -24,9 +26,9 @@ const HireDesigner = () => {
       />
 
       {/* Designers Grid */}
-      <section className="max-w-7xl mx-auto px-4 md:px-6 py-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
-          {designers.map(d => (
+      <section className="w-11/12 mx-auto py-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-5">
+          {allDesigner?.map(d => (
             <DesignerCard key={d.id} {...d} />
           ))}
         </div>

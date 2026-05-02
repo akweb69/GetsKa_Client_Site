@@ -4,9 +4,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import useAllCategories from '../Hooks/useAllCategories';
 import useProducts from '../Hooks/useProducts';
 
-/* ─────────────────────────────────────────────
-   EMPTY FORM STATE
-───────────────────────────────────────────── */
 const emptyForm = {
     title: '',
     sub_title: '',
@@ -17,13 +14,11 @@ const emptyForm = {
     mainImage: '',
     paperDetails: '',
     speciality: '',
-    // arrays stored as editable lists
     images: [''],
     priceBySize: [{ size: '', price: '' }],
-    PriceBySidesPrint: [{ sides: '', price: '' }],
+    PriceBySidesPrint: [{ sides: '', increasePriceAmount: '', sidePreviewImage: '' }],
     Laminations: [''],
-    deliveryTypes: [''],
-    color: [{ color: '' }],
+    deliveryTypes: [{ deliveryType: '', increasePriceAmountByDeliveryTypes: '' }],
     faq: [{ question: '', answer: '' }],
     productDetails: {
         Overview: '',
@@ -32,9 +27,6 @@ const emptyForm = {
     },
 };
 
-/* ─────────────────────────────────────────────
-   HELPERS
-───────────────────────────────────────────── */
 const uploadToImgBB = async (file, apiKey) => {
     const formData = new FormData();
     formData.append('image', file);
@@ -45,10 +37,6 @@ const uploadToImgBB = async (file, apiKey) => {
     return data.data.url;
 };
 
-
-/* ─────────────────────────────────────────────
-   MAIN COMPONENT
-───────────────────────────────────────────── */
 const ManageProducts = () => {
     const { allCategories = [] } = useAllCategories();
     const { products = [], isPending, refetch } = useProducts();
@@ -56,24 +44,22 @@ const ManageProducts = () => {
     const VITE_IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY;
     const base_url = import.meta.env.VITE_BASE_URL;
 
-    /* ── UI state ── */
-    const [view, setView] = useState('list'); // 'list' | 'add' | 'edit'
+    const [view, setView] = useState('list');
     const [editingProduct, setEditingProduct] = useState(null);
     const [form, setForm] = useState(emptyForm);
     const [saving, setSaving] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
     const [uploadingMain, setUploadingMain] = useState(false);
     const [uploadingIdx, setUploadingIdx] = useState(null);
+    const [uploadingSideIdx, setUploadingSideIdx] = useState(null); // NEW
     const [search, setSearch] = useState('');
     const [specKey, setSpecKey] = useState('');
     const [specVal, setSpecVal] = useState('');
     const [featKey, setFeatKey] = useState('');
     const [featVal, setFeatVal] = useState('');
     const mainImgRef = useRef();
+    const sideImgRefs = useRef([]); // NEW
 
-    /* ─────────────────────────────────────────
-       OPEN ADD / EDIT
-    ───────────────────────────────────────── */
     const openAdd = () => {
         setForm(emptyForm);
         setEditingProduct(null);
@@ -88,10 +74,9 @@ const ManageProducts = () => {
             ...product,
             images: product.images?.length ? product.images : [''],
             priceBySize: product.priceBySize?.length ? product.priceBySize : [{ size: '', price: '' }],
-            PriceBySidesPrint: product.PriceBySidesPrint?.length ? product.PriceBySidesPrint : [{ sides: '', price: '' }],
+            PriceBySidesPrint: product.PriceBySidesPrint?.length ? product.PriceBySidesPrint : [{ sides: '', increasePriceAmount: '', sidePreviewImage: '' }],
             Laminations: product.Laminations?.length ? product.Laminations : [''],
-            deliveryTypes: product.deliveryTypes?.length ? product.deliveryTypes : [''],
-            color: product.color?.length ? product.color : [{ color: '' }],
+            deliveryTypes: product.deliveryTypes?.length ? product.deliveryTypes : [{ deliveryType: '', increasePriceAmountByDeliveryTypes: '' }],
             faq: product.faq?.length ? product.faq : [{ question: '', answer: '' }],
             productDetails: product.productDetails || { Overview: '', Specifications: {}, Features: {} },
         });
@@ -99,9 +84,6 @@ const ManageProducts = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    /* ─────────────────────────────────────────
-       SCALAR FIELD CHANGE
-    ───────────────────────────────────────── */
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name.startsWith('productDetails.')) {
@@ -112,9 +94,6 @@ const ManageProducts = () => {
         }
     };
 
-    /* ─────────────────────────────────────────
-       ARRAY FIELD HELPERS
-    ───────────────────────────────────────── */
     const handleArrChange = (arrKey, idx, val) =>
         setForm(f => {
             const arr = [...f[arrKey]];
@@ -134,9 +113,6 @@ const ManageProducts = () => {
     const removeArrItem = (arrKey, idx) =>
         setForm(f => ({ ...f, [arrKey]: f[arrKey].filter((_, i) => i !== idx) }));
 
-    /* ─────────────────────────────────────────
-       SPEC / FEATURE KV HELPERS
-    ───────────────────────────────────────── */
     const addSpec = () => {
         if (!specKey.trim()) return;
         setForm(f => ({
@@ -175,9 +151,6 @@ const ManageProducts = () => {
             return { ...f, productDetails: { ...f.productDetails, Features: feats } };
         });
 
-    /* ─────────────────────────────────────────
-       IMAGE UPLOAD
-    ───────────────────────────────────────── */
     const handleMainImageUpload = async (e) => {
         const file = e.target.files?.[0];
         if (!file) return;
@@ -210,25 +183,38 @@ const ManageProducts = () => {
         }
     };
 
-    /* ─────────────────────────────────────────
-       SUBMIT (ADD / EDIT)
-    ───────────────────────────────────────── */
+    // ── NEW: Side Preview Image Upload ──
+    const handleSidePreviewUpload = async (e, idx) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setUploadingSideIdx(idx);
+        const toastId = toast.loading(`Uploading preview image…`);
+        try {
+            const url = await uploadToImgBB(file, VITE_IMGBB_API_KEY);
+            handleObjArrChange('PriceBySidesPrint', idx, 'sidePreviewImage', url);
+            toast.success('Preview image uploaded!', { id: toastId });
+        } catch {
+            toast.error('Image upload failed', { id: toastId });
+        } finally {
+            setUploadingSideIdx(null);
+            if (sideImgRefs.current[idx]) sideImgRefs.current[idx].value = '';
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!form.title.trim()) { toast.error('Product title is required'); return; }
         if (!form.price) { toast.error('Price is required'); return; }
 
-        // clean empty array entries
         const payload = {
             ...form,
             price: Number(form.price),
             min_quantity: Number(form.min_quantity),
             images: form.images.filter(Boolean),
             Laminations: form.Laminations.filter(Boolean),
-            deliveryTypes: form.deliveryTypes.filter(Boolean),
+            deliveryTypes: form.deliveryTypes.filter(d => d.deliveryType),
             priceBySize: form.priceBySize.filter(p => p.size),
             PriceBySidesPrint: form.PriceBySidesPrint.filter(p => p.sides),
-            color: form.color.filter(c => c.color),
             faq: form.faq.filter(f => f.question),
         };
 
@@ -253,9 +239,6 @@ const ManageProducts = () => {
         }
     };
 
-    /* ─────────────────────────────────────────
-       DELETE
-    ───────────────────────────────────────── */
     const handleDelete = (product) => {
         toast((t) => (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -289,22 +272,15 @@ const ManageProducts = () => {
         }
     };
 
-    /* ─────────────────────────────────────────
-       FILTERED PRODUCTS
-    ───────────────────────────────────────── */
     const filtered = products.filter(p =>
         p.title?.toLowerCase().includes(search.toLowerCase()) ||
         p.p_category?.toLowerCase().includes(search.toLowerCase())
     );
 
-    /* ═══════════════════════════════════════════
-       RENDER
-    ═══════════════════════════════════════════ */
     return (
         <div style={styles.wrapper}>
             <Toaster position="top-right" toastOptions={{ style: { fontFamily: 'inherit', fontSize: 14 } }} />
 
-            {/* ── HEADER ── */}
             <div style={styles.topBar}>
                 <div>
                     <h1 style={styles.heading}>Product Management</h1>
@@ -324,12 +300,8 @@ const ManageProducts = () => {
                 </div>
             </div>
 
-            {/* ══════════════════════════════════════
-          LIST VIEW
-      ══════════════════════════════════════ */}
             {view === 'list' && (
                 <div>
-                    {/* search */}
                     <div style={styles.searchBar}>
                         <span style={styles.searchIcon}>🔍</span>
                         <input
@@ -402,14 +374,10 @@ const ManageProducts = () => {
                 </div>
             )}
 
-            {/* ══════════════════════════════════════
-          ADD / EDIT FORM VIEW
-      ══════════════════════════════════════ */}
             {(view === 'add' || view === 'edit') && (
                 <form onSubmit={handleSubmit} style={styles.form}>
                     <div style={styles.formGrid}>
 
-                        {/* ── SECTION: Basic Info ── */}
                         <Section title="Basic Information" icon="📝">
                             <Grid2>
                                 <Field label="Product Title *">
@@ -440,7 +408,6 @@ const ManageProducts = () => {
                             </Grid2>
                         </Section>
 
-                        {/* ── SECTION: Images ── */}
                         <Section title="Images" icon="🖼️">
                             <Field label="Main Image">
                                 <div style={styles.imageUploadRow}>
@@ -480,7 +447,6 @@ const ManageProducts = () => {
                             </Field>
                         </Section>
 
-                        {/* ── SECTION: Pricing Variants ── */}
                         <Section title="Pricing Variants" icon="💰">
                             <Field label="Price by Size">
                                 {form.priceBySize.map((item, i) => (
@@ -493,38 +459,81 @@ const ManageProducts = () => {
                                 <button type="button" style={styles.addRowBtn} onClick={() => addArrItem('priceBySize', { size: '', price: '' })}>+ Add Size</button>
                             </Field>
 
+                            {/* ── Price by Sides (Print) — UPDATED with image upload ── */}
                             <Field label="Price by Sides (Print)">
                                 {form.PriceBySidesPrint.map((item, i) => (
-                                    <div key={i} style={styles.rowGroup}>
-                                        <input value={item.sides} onChange={e => handleObjArrChange('PriceBySidesPrint', i, 'sides', e.target.value)} style={{ ...styles.input, flex: 1 }} placeholder="e.g. single side print" />
-                                        <input type="number" value={item.price} onChange={e => handleObjArrChange('PriceBySidesPrint', i, 'price', e.target.value)} style={{ ...styles.input, width: 130 }} placeholder="Price (৳)" />
-                                        <button type="button" style={styles.removeBtn} onClick={() => removeArrItem('PriceBySidesPrint', i)}>✕</button>
+                                    <div key={i} style={styles.sideCard}>
+                                        {/* Row 1: sides label + price + remove */}
+                                        <div style={styles.rowGroup}>
+                                            <input
+                                                value={item.sides}
+                                                onChange={e => handleObjArrChange('PriceBySidesPrint', i, 'sides', e.target.value)}
+                                                style={{ ...styles.input, flex: 2 }}
+                                                placeholder="e.g. single side print"
+                                            />
+                                            <input
+                                                type="number"
+                                                value={item.increasePriceAmount}
+                                                onChange={e => handleObjArrChange('PriceBySidesPrint', i, 'increasePriceAmount', e.target.value)}
+                                                style={{ ...styles.input, width: 150 }}
+                                                placeholder="Increase Price (৳)"
+                                            />
+                                            <button type="button" style={styles.removeBtn} onClick={() => removeArrItem('PriceBySidesPrint', i)}>✕</button>
+                                        </div>
+
+                                        {/* Row 2: Preview Image — upload + URL */}
+                                        <div style={styles.sidePreviewRow}>
+                                            <label style={styles.sidePreviewLabel}>Preview Image</label>
+                                            <div style={styles.sidePreviewInputs}>
+                                                {/* Thumbnail if image exists */}
+                                                {item.sidePreviewImage && (
+                                                    <img
+                                                        src={item.sidePreviewImage}
+                                                        alt={`side-preview-${i}`}
+                                                        style={styles.sideThumb}
+                                                        onError={e => { e.target.style.display = 'none'; }}
+                                                    />
+                                                )}
+                                                {/* Upload button */}
+                                                <label style={{ ...styles.uploadBtn, padding: '7px 14px', cursor: 'pointer', flexShrink: 0 }}>
+                                                    {uploadingSideIdx === i ? <Spinner /> : '📤 Upload'}
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        style={{ display: 'none' }}
+                                                        ref={el => sideImgRefs.current[i] = el}
+                                                        onChange={e => handleSidePreviewUpload(e, i)}
+                                                    />
+                                                </label>
+                                                {/* Divider */}
+                                                <span style={styles.orDivider}>or</span>
+                                                {/* URL input */}
+                                                <input
+                                                    value={item.sidePreviewImage}
+                                                    onChange={e => handleObjArrChange('PriceBySidesPrint', i, 'sidePreviewImage', e.target.value)}
+                                                    style={{ ...styles.input, flex: 1, minWidth: 0 }}
+                                                    placeholder="Paste image URL…"
+                                                />
+                                                {/* Clear button */}
+                                                {item.sidePreviewImage && (
+                                                    <button
+                                                        type="button"
+                                                        style={styles.removeBtn}
+                                                        onClick={() => handleObjArrChange('PriceBySidesPrint', i, 'sidePreviewImage', '')}
+                                                        title="Clear image"
+                                                    >✕</button>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
                                 ))}
-                                <button type="button" style={styles.addRowBtn} onClick={() => addArrItem('PriceBySidesPrint', { sides: '', price: '' })}>+ Add Sides Option</button>
+                                <button type="button" style={styles.addRowBtn} onClick={() => addArrItem('PriceBySidesPrint', { sides: '', increasePriceAmount: '', sidePreviewImage: '' })}>
+                                    + Add Sides Option
+                                </button>
                             </Field>
                         </Section>
 
-                        {/* ── SECTION: Variants ── */}
                         <Section title="Variants & Options" icon="🎨">
-                            <Field label="Colors">
-                                <div style={styles.colorGrid}>
-                                    {form.color.map((c, i) => (
-                                        <div key={i} style={styles.colorRow}>
-                                            <input
-                                                type="color"
-                                                value={c.color?.startsWith('#') ? c.color : '#000000'}
-                                                onChange={e => handleObjArrChange('color', i, 'color', e.target.value)}
-                                                style={styles.colorPicker}
-                                            />
-                                            <input value={c.color} onChange={e => handleObjArrChange('color', i, 'color', e.target.value)} style={{ ...styles.input, flex: 1 }} placeholder="e.g. red or #ff0000" />
-                                            <button type="button" style={styles.removeBtn} onClick={() => removeArrItem('color', i)}>✕</button>
-                                        </div>
-                                    ))}
-                                </div>
-                                <button type="button" style={styles.addRowBtn} onClick={() => addArrItem('color', { color: '' })}>+ Add Color</button>
-                            </Field>
-
                             <Field label="Laminations">
                                 {form.Laminations.map((lam, i) => (
                                     <div key={i} style={styles.rowGroup}>
@@ -537,16 +546,18 @@ const ManageProducts = () => {
 
                             <Field label="Delivery Types">
                                 {form.deliveryTypes.map((dt, i) => (
-                                    <div key={i} style={styles.rowGroup}>
-                                        <input value={dt} onChange={e => handleArrChange('deliveryTypes', i, e.target.value)} style={{ ...styles.input, flex: 1 }} placeholder="Delivery type" />
-                                        <button type="button" style={styles.removeBtn} onClick={() => removeArrItem('deliveryTypes', i)}>✕</button>
+                                    <div key={i} style={{ ...styles.rowGroup, flexDirection: 'column', alignItems: 'stretch', gap: 8, padding: '12px', border: '1px solid #eee', borderRadius: 8, marginBottom: 8 }}>
+                                        <div style={styles.rowGroup}>
+                                            <input value={dt.deliveryType} onChange={e => handleObjArrChange('deliveryTypes', i, 'deliveryType', e.target.value)} style={{ ...styles.input, flex: 1 }} placeholder="Delivery type (e.g. Home Delivery)" />
+                                            <input type="number" value={dt.increasePriceAmountByDeliveryTypes} onChange={e => handleObjArrChange('deliveryTypes', i, 'increasePriceAmountByDeliveryTypes', e.target.value)} style={{ ...styles.input, width: 150 }} placeholder="Increase Price (৳)" />
+                                            <button type="button" style={styles.removeBtn} onClick={() => removeArrItem('deliveryTypes', i)}>✕</button>
+                                        </div>
                                     </div>
                                 ))}
-                                <button type="button" style={styles.addRowBtn} onClick={() => addArrItem('deliveryTypes', '')}>+ Add Delivery Type</button>
+                                <button type="button" style={styles.addRowBtn} onClick={() => addArrItem('deliveryTypes', { deliveryType: '', increasePriceAmountByDeliveryTypes: '' })}>+ Add Delivery Type</button>
                             </Field>
                         </Section>
 
-                        {/* ── SECTION: Product Details ── */}
                         <Section title="Product Details" icon="📋">
                             <Field label="Overview">
                                 <textarea
@@ -589,7 +600,6 @@ const ManageProducts = () => {
                             </Field>
                         </Section>
 
-                        {/* ── SECTION: Paper & Speciality ── */}
                         <Section title="Paper & Speciality" icon="📄">
                             <Field label="Paper Details">
                                 <textarea
@@ -611,7 +621,6 @@ const ManageProducts = () => {
                             </Field>
                         </Section>
 
-                        {/* ── SECTION: FAQ ── */}
                         <Section title="FAQ" icon="❓">
                             {form.faq.map((item, i) => (
                                 <div key={i} style={styles.faqCard}>
@@ -637,7 +646,6 @@ const ManageProducts = () => {
                         </Section>
                     </div>
 
-                    {/* ── SUBMIT BAR ── */}
                     <div style={styles.submitBar}>
                         <button type="button" style={styles.outlineBtn} onClick={() => setView('list')} disabled={saving}>
                             Cancel
@@ -655,9 +663,6 @@ const ManageProducts = () => {
     );
 };
 
-/* ─────────────────────────────────────────────
-   SUB-COMPONENTS
-───────────────────────────────────────────── */
 const Section = ({ title, icon, children }) => (
     <div style={styles.section}>
         <h2 style={styles.sectionTitle}>{icon} {title}</h2>
@@ -690,13 +695,10 @@ const Spinner = () => (
     }} />
 );
 
-/* ─────────────────────────────────────────────
-   STYLES
-───────────────────────────────────────────── */
 const styles = {
     wrapper: {
         fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-        maxWidth: 1100,
+        maxWidth: 1440,
         margin: '0 auto',
         padding: '24px 20px 60px',
         color: '#1a1a2e',
@@ -965,17 +967,6 @@ const styles = {
         display: 'inline-block',
         transition: 'background 0.15s',
     },
-    colorGrid: { display: 'flex', flexDirection: 'column', gap: 8 },
-    colorRow: { display: 'flex', gap: 8, alignItems: 'center' },
-    colorPicker: {
-        width: 38,
-        height: 38,
-        border: '1.5px solid #e5e7eb',
-        borderRadius: 8,
-        cursor: 'pointer',
-        padding: 2,
-        flexShrink: 0,
-    },
     kvLabel: {
         background: '#f3f4f6',
         border: '1px solid #e5e7eb',
@@ -1015,9 +1006,50 @@ const styles = {
         position: 'sticky',
         bottom: 16,
     },
+
+    // ── NEW styles for Side Preview Image ──
+    sideCard: {
+        border: '1px solid #e5e7eb',
+        borderRadius: 10,
+        padding: 14,
+        marginBottom: 10,
+        background: '#fafafa',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+    },
+    sidePreviewRow: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6,
+    },
+    sidePreviewLabel: {
+        fontSize: 12,
+        fontWeight: 600,
+        color: '#6b7280',
+    },
+    sidePreviewInputs: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        flexWrap: 'wrap',
+    },
+    sideThumb: {
+        width: 42,
+        height: 42,
+        objectFit: 'cover',
+        borderRadius: 6,
+        border: '1px solid #e5e7eb',
+        flexShrink: 0,
+    },
+    orDivider: {
+        fontSize: 12,
+        color: '#9ca3af',
+        fontWeight: 500,
+        flexShrink: 0,
+    },
 };
 
-// inject keyframes
 if (typeof document !== 'undefined') {
     const style = document.createElement('style');
     style.textContent = `
