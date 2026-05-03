@@ -17,6 +17,8 @@ import { useAuth } from '../Context/AuthContext'
 import toast from 'react-hot-toast'
 import useMyCart from '../AdminCode/Hooks/useMyCart'
 import AdminLoader from '../AdminCode/Components/AdminLoader'
+import MyCart from '../User/MyCart'
+import useWishlist from '../AdminCode/Hooks/useWishlist'
 
 /* ─────────────────────── animation variants ─────────────────────── */
 
@@ -309,9 +311,11 @@ const Navbar = () => {
   const [searchValue, setSearchValue] = useState('')
   const navRef = useRef(null)
   const { user, userLoading, logout } = useAuth()
+  const { wishlistCount } = useWishlist();
 
   const { allCategories = [] } = useAllCategories();
   const { isLoading, myCart } = useMyCart(user?.email);
+  const [openCartSection, setOpenCartSection] = useState(false);
 
   const navLinks = useMemo(() => [
     { name: 'Home', path: '/' },
@@ -365,7 +369,7 @@ const Navbar = () => {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full font-sans">
+    <header className="sticky top-0 z-50 w-full font-sans ">
 
       {/* TOP BAR */}
       <motion.div
@@ -482,16 +486,40 @@ const Navbar = () => {
 
               {/* Heart */}
               <motion.button
-                className="hidden lg:flex items-center justify-center w-9 h-9 rounded-full text-blue-200/65 hover:text-white hover:bg-white/10"
+
+
+                className="hidden lg:flex relative items-center justify-center w-9 h-9 rounded-full text-blue-200/65 hover:text-white hover:bg-white/10"
                 whileHover={{ scale: 1.12 }}
                 whileTap={{ scale: 0.9 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
-                <Heart size={17} />
+                <Link to="/user/wishlist" className="" >
+                  <Heart size={17} />
+                </Link>
+
+
+                <motion.span
+                  className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full text-[9px] font-bold text-white flex items-center justify-center"
+                  style={{
+                    background: "linear-gradient(135deg,#60a5fa,#a78bfa)",
+                  }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 20,
+                    delay: 0.5,
+                  }}
+                >
+                  {wishlistCount || 0}
+                </motion.span>
               </motion.button>
 
               {/* Cart */}
-              <div className="hidden lg:block relative">
+              <div
+                onClick={() => setOpenCartSection(!openCartSection)}
+                className="hidden lg:block relative">
                 <motion.button
                   className="flex items-center justify-center w-9 h-9 rounded-full text-blue-200/65 hover:text-white hover:bg-white/10"
                   whileHover={{ scale: 1.12 }}
@@ -805,6 +833,16 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+
+      {/* cart section  */}
+      {
+        openCartSection && (
+          <div className="absolute top-[98px] right-0  z-50">
+            <MyCart />
+          </div>
+        )
+      }
     </header>
   )
 }

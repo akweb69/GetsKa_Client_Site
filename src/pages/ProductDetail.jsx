@@ -12,6 +12,8 @@ import useProducts from '../AdminCode/Hooks/useProducts';
 import { useAuth } from '../Context/AuthContext';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import useMyCart from '../AdminCode/Hooks/useMyCart';
+import useWishlist from '../AdminCode/Hooks/useWishlist';
 
 const reviews = [
   { name: 'Sarah Tucker', date: 'Feb 12, 2024', stars: 5, text: 'Excellent quality! The prints came out perfect and exactly as described.' },
@@ -279,6 +281,8 @@ const ProductDetail = () => {
   const { productName } = useParams();
   const { products, isLoading } = useProducts();
   const { user, userLoading } = useAuth();
+  const { refetch } = useMyCart(user?.email);
+  const { refetchMyWishlist } = useWishlist();
 
   const [product, setProduct] = useState(null);
   const [qty, setQty] = useState(1);
@@ -369,15 +373,20 @@ const ProductDetail = () => {
       selectedSide: selectedSide,
       selectedLamination: selectedLamination,
       selectedDelivery: selectedDelivery,
-      selectedImage: selectedImage,
+      selectedImage: product?.mainImage || (product?.images?.length ? product.images[0] : ''),
       quantity: qty,
-      totalPrice: totalPrice
+      totalPrice: totalPrice,
+      itemName: product.title,
+      itemPrice: basePrice,
+      itemSidePrice: sideExtra,
+      itemDeliveryPrice: deliveryExtra
 
     }
 
     const res = await axios.post(`${base_url}/cart`, cartData);
     if (res.data) {
       toast.dismiss();
+      refetch(); // Refetch the cart data after adding an item
       toast.success("✅ successfully added to cart")
     }
     else {
@@ -387,6 +396,35 @@ const ProductDetail = () => {
 
   }
 
+
+  const handleAddtoWishlist = async (p) => {
+    if (!user && !user?.email) {
+      toast.error("Please login first")
+      return;
+    }
+
+    const wishlistData = {
+      userEmail: user?.email,
+      itemId: p._id,
+      itemName: p.title,
+      itemPrice: p.price,
+      mainImage: p.mainImage || (p.images?.length ? p.images[0] : ''),
+      moq: p.min_quantity || 1,
+    }
+    const res = await axios.post(`${base_url}/wishlist`, wishlistData);
+    if (res.data) {
+      setIsWishlisted(true);
+      refetchMyWishlist();
+      toast.success("✅ successfully added to wishlist")
+    }
+    else {
+      toast.error("❌ something went wrong try again letter")
+
+    }
+
+
+
+  }
 
 
 
@@ -872,7 +910,7 @@ const ProductDetail = () => {
                   </div>
                   <button
                     className="pd-wish-btn"
-                    onClick={() => setIsWishlisted(!isWishlisted)}
+                    onClick={() => handleAddtoWishlist(product)}
                   >
                     <Heart
                       size={22}

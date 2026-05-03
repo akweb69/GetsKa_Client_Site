@@ -23,6 +23,8 @@ import UserDashLayout from './User/UserDashLayout'
 import UserDashboard from './User/UserDashboard'
 import UserOrders from './User/UserOrders'
 import UserSettings from './User/UserSettings'
+import ManageOrders from './AdminCode/Pages/ManageOrders'
+import MyWishList from './User/MyWishList'
 
 
 function App() {
@@ -49,6 +51,7 @@ function App() {
       <Route path="/user" element={<UserDashLayout />}>
         <Route index element={< UserDashboard />} />
         <Route path="orders" element={< UserOrders />} />
+        <Route path="wishlist" element={< MyWishList />} />
         <Route path="settings" element={< UserSettings />} />
 
 
@@ -68,6 +71,7 @@ function App() {
         <Route path="manage-products" element={< ManageProducts />} />
         <Route path="manage-categories" element={< ManageCategories />} />
         <Route path="manage-designers" element={< ManageDesigner />} />
+        <Route path="manage-orders" element={< ManageOrders />} />
 
       </Route>
     </Routes>
